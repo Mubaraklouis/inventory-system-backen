@@ -58,7 +58,8 @@ class DatabaseSeeder extends Seeder
         //call all the seeder classes here
         $this->call(
             [
-                ProductSeeder::class
+                ProductSeeder::class,
+                OutproductSeeder::class
             ]
             );
 

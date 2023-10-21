@@ -17,7 +17,8 @@ class OutproductFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+           'sold'=>true,
+           'product_id'=>fake()->numberBetween(2,20)
         ];
     }
 }
