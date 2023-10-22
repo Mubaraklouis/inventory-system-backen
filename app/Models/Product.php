@@ -10,7 +10,7 @@ class Product extends Model
 
 
     /**
-     * users()-> this returns all the products by a user.
+     * users()-> this returns all the users by a product.
      *
      */
 
