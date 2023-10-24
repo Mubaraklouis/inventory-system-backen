@@ -5,7 +5,7 @@ import Chart from 'chart.js/auto';
  * chartBluePrint: Is a function used to get a chart type and it properties
  *
  **/
-class Graph{
+ export class Graph{
      chartBluePrint(ctx,graphType,colors){
         new Chart(ctx, {
             type: graphType,

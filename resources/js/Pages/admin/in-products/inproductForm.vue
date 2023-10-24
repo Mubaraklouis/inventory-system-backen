@@ -1,5 +1,8 @@
 <template>
-    <form class="in-product-form grid grid-cols-1" action="">
+  <div>
+
+    <adminLayeout>
+        <form class="in-product-form grid grid-cols-1" action="">
       <label class="text-sm font-extrabold" for="Product Name"
         >Product Name</label
       >
@@ -33,8 +36,14 @@
 
       <button class="btn-component text-sm text-bold">submit</button>
     </form>
+
+    </adminLayeout>
+  </div>
   </template>
 
-  <script setup lang="ts"></script>
-  <script></script>
+
+  <script setup>
+  import adminLayeout from "../../../Layouts/admin/adminLayeout.vue"
+
+</script>
   <style></style>

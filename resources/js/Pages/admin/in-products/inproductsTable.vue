@@ -1,9 +1,18 @@
-<script setup lang="ts">
-import PagePagination from "../js/pageProduct.vue"
+<script setup>
+import adminLayeout from "../../../Layouts/admin/adminLayeout.vue"
+import PagePagination from "../partial/pagePagination.vue"
+
+ defineProps({
+    products:Array
+})
+
+
 </script>
 
 <template>
   <div>
+   <adminLayeout>
+
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg mr-16">
       <table class="w-full text-sm text-left text-gray-500">
         <thead
@@ -14,20 +23,22 @@ import PagePagination from "../js/pageProduct.vue"
             <th scope="col" class="px-6 py-3">QTY</th>
             <th scope="col" class="px-6 py-3">Category</th>
             <th scope="col" class="px-6 py-3">Price</th>
+            <th scope="col" class="px-6 py-3">serial no</th>
             <th scope="col" class="px-6 py-3">Action</th>
           </tr>
         </thead>
         <tbody>
-          <tr class="bg-white border-b">
+          <tr v-for="product in products" :key="product.id"  class="bg-white border-b">
             <th
               scope="row"
               class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
             >
-              Apple MacBook Pro 17"
+             {{ product.name }}
             </th>
-            <td class="px-6 py-4">20</td>
+            <td class="px-6 py-4">{{ product.quantity }}</td>
             <td class="px-6 py-4">Laptop</td>
-            <td class="px-6 py-4">$2999</td>
+            <td class="px-6 py-4">{{ product.price }}</td>
+            <td class="px-6 py-4">{{ product.serial_number }}</td>
             <td class="px-6 py-4">
               <div class="flex gap-4">
                 <div
@@ -43,7 +54,7 @@ import PagePagination from "../js/pageProduct.vue"
               </div>
             </td>
           </tr>
-          <tr class="border-b bg-gray-100">
+          <!-- <tr class="border-b bg-gray-100">
             <th
               scope="row"
               class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
@@ -67,8 +78,8 @@ import PagePagination from "../js/pageProduct.vue"
                 </div>
               </div>
             </td>
-          </tr>
-          <tr class="bg-white border-b">
+          </tr> -->
+          <!-- <tr class="bg-white border-b">
             <th
               scope="row"
               class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
@@ -92,8 +103,8 @@ import PagePagination from "../js/pageProduct.vue"
                 </div>
               </div>
             </td>
-          </tr>
-          <tr class="border-b bg-gray-100">
+          </tr> -->
+          <!-- <tr class="border-b bg-gray-100">
             <th
               scope="row"
               class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
@@ -117,12 +128,13 @@ import PagePagination from "../js/pageProduct.vue"
                 </div>
               </div>
             </td>
-          </tr>
+          </tr> -->
         </tbody>
       </table>
     </div>
 
     <PagePagination />
+   </adminLayeout>
   </div>
 </template>
 

@@ -13,7 +13,12 @@ class ProductController extends Controller
      */
     public function index()
     {
- 
+    $products = Product::all();
+    // dd($products);
+
+     return inertia('admin/in-products/inproductsTable',[
+        "products"=>$products
+     ]);
     }
 
     /**

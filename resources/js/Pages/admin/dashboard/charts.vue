@@ -43,7 +43,7 @@
   <script setup>
   import { onMounted } from "vue";
 
-  import Graph from "./services/chart";
+import {Graph} from "../../../services/chart"
 
 
   /*

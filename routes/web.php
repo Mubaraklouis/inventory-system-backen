@@ -25,23 +25,31 @@ Route::get('/', function () {
         'canRegister' => Route::has('register'),
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
-        'products' => $products
+
     ]);
 });
 
 Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
+    return Inertia::render('admin/dashboard/Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+
+
+    //creating products routes
+    Route::controller(ProductController::class)->prefix('product')->group(function () {
+        Route::get('/index', 'index')->name('products.index');
+
+    });
 });
 
-//creating products routes
-Route::controller(ProductController::class)->prefix('product')->group(function () {
-    Route::get('/index','index');
-});
+//gust routes
+
+
+
 
 require __DIR__ . '/auth.php';

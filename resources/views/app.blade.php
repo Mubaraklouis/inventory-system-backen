@@ -149,6 +149,10 @@
   margin-top: 15px;
   margin-bottom: 10px;
 }
+body{
+
+    background-color: #E3E1FC;
+}
 
         </style>
         @inertia
