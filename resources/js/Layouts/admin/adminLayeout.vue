@@ -86,7 +86,7 @@ import { Link } from '@inertiajs/vue3';
             />
             <div>
               <h5 class="text-sm font-extrabold mt-2">Mubarak Louis</h5>
-              <h5 class="text-xs secondary-text">in-system</h5>
+              <h5 class="text-xs secondary-text"><Link href="/logout" method="post">Logout</Link></h5>
             </div>
           </div>
         </div>

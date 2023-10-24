@@ -14,8 +14,6 @@ import chart from "@/Pages/admin/dashboard/charts.vue"
 
 
     <adminLayeout>
-
-dashboard
 <chart/>
 
     </adminLayeout>
