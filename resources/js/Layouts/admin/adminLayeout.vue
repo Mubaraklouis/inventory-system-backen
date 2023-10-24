@@ -1,5 +1,18 @@
 <script setup>
 import { Link } from '@inertiajs/vue3';
+import { computed } from 'vue';
+import { usePage } from '@inertiajs/vue3'
+
+import DropdownLink from '@/Components/DropdownLink.vue';
+
+const page = usePage();
+const user = computed(() => page.props.auth.user)
+
+
+
+
+
+
 </script>
 
 <template>
@@ -85,8 +98,12 @@ import { Link } from '@inertiajs/vue3';
               alt=""
             />
             <div>
-              <h5 class="text-sm font-extrabold mt-2">Mubarak Louis</h5>
+              <!-- <h5 class="text-sm font-extrabold mt-2">{{ user.name }}</h5> -->
+              <h5 class="text-sm font-extrabold mt-2"><Link href="/profile">{{ user.name }}</Link></h5>
               <h5 class="text-xs secondary-text"><Link href="/logout" method="post">Logout</Link></h5>
+
+
+
             </div>
           </div>
         </div>

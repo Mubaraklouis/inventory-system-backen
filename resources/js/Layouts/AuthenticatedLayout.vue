@@ -20,11 +20,11 @@ const showingNavigationDropdown = ref(false);
                         <div class="flex">
                             <!-- Logo -->
                             <div class="shrink-0 flex items-center">
-                                <Link :href="route('dashboard')">
+                                <!-- <Link :href="route('dashboard')">
                                     <ApplicationLogo
                                         class="block h-9 w-auto fill-current text-gray-800"
                                     />
-                                </Link>
+                                </Link> -->
                             </div>
 
                             <!-- Navigation Links -->
@@ -119,7 +119,7 @@ const showingNavigationDropdown = ref(false);
 
                     <!-- Responsive Settings Options -->
                     <div class="pt-4 pb-1 border-t border-gray-200">
-                   
+
                         <div class="px-4">
                             <div class="font-medium text-base text-gray-800">
                             {{ $page.props.auth.user.name }}
