@@ -21,24 +21,9 @@ class DatabaseSeeder extends Seeder
      * enableForiegnKey() : enables foriengn key constains after seeding
      */
 
-    public function truncateTable($table)
-    {
-        DB::table($table)->truncate();
-
-    }
 
 
-    public function enableForeignKey()
-    {
-        DB::statement('SET FOREIGN_KEY_CHECKS=1');
-    }
-
-    public function disableForeignKey()
-    {
-        DB::statement('SET FOREIGN_KEY_CHECKS=0');
-    }
-
-
+     use traits\ForiegnKeyCheck;
 
     public function run(): void
     {
