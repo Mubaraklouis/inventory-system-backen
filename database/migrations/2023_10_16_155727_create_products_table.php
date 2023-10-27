@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->integer('price');
             $table->integer('serial_number');
+            $table->string('description');
             $table->integer('quantity');
             $table->timestamps();
         });

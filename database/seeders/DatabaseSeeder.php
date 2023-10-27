@@ -23,7 +23,21 @@ class DatabaseSeeder extends Seeder
 
 
 
-     use traits\ForiegnKeyCheck;
+    //  use traits\ForiegnKeyCheck;
+
+    public function enableForeignKey(){
+        DB::statement('SET FOREIGN_KEY_CHECKS=1');
+    }
+
+    public function disableForeignKey(){
+          DB::statement('SET FOREIGN_KEY_CHECKS=0');
+    }
+
+    public function truncateTable($table)
+    {
+        DB::table($table)->truncate();
+
+    }
 
     public function run(): void
     {

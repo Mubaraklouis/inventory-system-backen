@@ -43,7 +43,7 @@ const user = computed(() => page.props.auth.user);
                                         alt=""
                                     />
                                 </div>
-                                Dashboard
+                           <Link href="/dashboard">Dashboard</Link>
                             </li>
                             <li class="flex gap-y-6 gap-x-2 items-center">
                                 <div>
@@ -54,7 +54,7 @@ const user = computed(() => page.props.auth.user);
                                     />
                                 </div>
 
-                                <Link href="/product/index"> In products </Link>
+                                <Link href="/product/add-product"> In products </Link>
                             </li>
                             <li class="flex gap-y-6 gap-x-2 items-center">
                                 <div>
@@ -64,7 +64,7 @@ const user = computed(() => page.props.auth.user);
                                         alt=""
                                     />
                                 </div>
-                                outproduct
+                                <Link href="/product/index"> Out products </Link>
                             </li>
                             <li class="flex gap-y-6 gap-x-2 items-center">
                                 <div>
@@ -136,7 +136,7 @@ const user = computed(() => page.props.auth.user);
                                 <Link href="/profile">{{ user.name }}</Link>
                             </h5>
                             <h5 class="text-xs secondary-text">
-                                <Link href="/logout" method="post">Logout</Link>
+                                <Link href="/logout" as="button" method="post">Logout</Link>
                             </h5>
                         </div>
                     </div>

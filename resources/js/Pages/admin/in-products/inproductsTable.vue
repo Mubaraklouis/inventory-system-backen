@@ -1,9 +1,10 @@
 <script setup>
 import adminLayeout from "../../../Layouts/admin/adminLayeout.vue"
 import PagePagination from "../partial/pagePagination.vue"
+import { Link } from "@inertiajs/vue3";
 
  defineProps({
-    products:Array
+    products:Object
 })
 
 
@@ -28,12 +29,14 @@ import PagePagination from "../partial/pagePagination.vue"
           </tr>
         </thead>
         <tbody>
-          <tr v-for="product in products" :key="product.id"  class="bg-white border-b">
+
+          <tr v-for="product in products.data" :key="product.id"  class="bg-white border-b">
+
             <th
               scope="row"
               class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
             >
-             {{ product.name }}
+           <Link :href="route('product.show',product.id)">  {{ product.name }}</Link>
             </th>
             <td class="px-6 py-4">{{ product.quantity }}</td>
             <td class="px-6 py-4">Laptop</td>
@@ -53,87 +56,14 @@ import PagePagination from "../partial/pagePagination.vue"
                 </div>
               </div>
             </td>
+
+
           </tr>
-          <!-- <tr class="border-b bg-gray-100">
-            <th
-              scope="row"
-              class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
-            >
-              Microsoft Surface Pro
-            </th>
-            <td class="px-6 py-4">10</td>
-            <td class="px-6 py-4">Laptop PC</td>
-            <td class="px-6 py-4">$1999</td>
-            <td class="px-6 py-4">
-              <div class="flex gap-4">
-                <div
-                  class="font-medium text-white hover:underline bg-red-400 p-2 rounded-md"
-                >
-                  <img class="w-4 h-4" src="/icons/trash.png" alt="" />
-                </div>
-                <div
-                  class="font-medium text-white hover:underline table-primary p-2 rounded-md"
-                >
-                  <img class="w-4 h-4" src="/icons/file-edit.png" alt="" />
-                </div>
-              </div>
-            </td>
-          </tr> -->
-          <!-- <tr class="bg-white border-b">
-            <th
-              scope="row"
-              class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
-            >
-              Magic Mouse 2
-            </th>
-            <td class="px-6 py-4">7</td>
-            <td class="px-6 py-4">Accessories</td>
-            <td class="px-6 py-4">$99</td>
-            <td class="px-6 py-4">
-              <div class="flex gap-4">
-                <div
-                  class="font-medium text-white hover:underline bg-red-400 p-2 rounded-md"
-                >
-                  <img class="w-4 h-4" src="/icons/trash.png" alt="" />
-                </div>
-                <div
-                  class="font-medium text-white hover:underline table-primary p-2 rounded-md"
-                >
-                  <img class="w-4 h-4" src="/icons/file-edit.png" alt="" />
-                </div>
-              </div>
-            </td>
-          </tr> -->
-          <!-- <tr class="border-b bg-gray-100">
-            <th
-              scope="row"
-              class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
-            >
-              Google Pixel Phone
-            </th>
-            <td class="px-6 py-4">67</td>
-            <td class="px-6 py-4">Phone</td>
-            <td class="px-6 py-4">$799</td>
-            <td class="px-6 py-4">
-              <div class="flex gap-4">
-                <div
-                  class="font-medium text-white hover:underline bg-red-400 p-2 rounded-md"
-                >
-                  <img class="w-4 h-4" src="/icons/trash.png" alt="" />
-                </div>
-                <div
-                  class="font-medium text-white hover:underline table-primary p-2 rounded-md"
-                >
-                  <img class="w-4 h-4" src="/icons/file-edit.png" alt="" />
-                </div>
-              </div>
-            </td>
-          </tr> -->
         </tbody>
       </table>
     </div>
 
-    <PagePagination />
+    <PagePagination :Links="products.links" />
    </adminLayeout>
   </div>
 </template>

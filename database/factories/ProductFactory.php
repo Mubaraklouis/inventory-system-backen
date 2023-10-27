@@ -22,6 +22,7 @@ class ProductFactory extends Factory
          'name'=>fake()->name(),
          'price'=>fake()->numberBetween(2,10),
          'serial_number'=>fake()->numberBetween(2,30),
+        "description" => fake()->text(),
          'quantity'=>fake()->numberBetween(2,30),
 
         ];
