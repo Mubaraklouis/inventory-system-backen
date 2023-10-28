@@ -6,11 +6,12 @@ use App\Models\Product;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
 
- /**
+    /**
      * Display a form for adding new product.
      */
     public function create()
@@ -26,11 +27,11 @@ class ProductController extends Controller
     public function index()
     {
 
-    // dd($products);
 
-     return inertia('admin/in-products/inproductsTable',[
-        "products"=> Product::paginate(4)
-     ]);
+
+        return inertia('admin/in-products/inproductsTable', [
+            "products" => Product::paginate(4)
+        ]);
     }
 
     /**
@@ -38,51 +39,64 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
-     $validated = [
-    "name" =>$request->name,
-    "user_id"=>$request->user_id,
-    "serial_number" => $request->serial_number,
-    "sold"=>$request->sold,
-    "description"=>$request->description,
-    "quantity"=>$request->price,
-    "quantity" => $request->quantity,
-    "price" =>$request->price
-     ];
+        $validated = [
+            "name" => $request->name,
+            "user_id" => $request->user_id,
+            "serial_number" => $request->serial_number,
+            "sold" => $request->sold,
+            "description" => $request->description,
+            "quantity" => $request->price,
+            "quantity" => $request->quantity,
+            "price" => $request->price
+        ];
 
-    Product::create($validated);
-    return redirect()->route('products.index');
+        Product::create($validated);
+        return redirect()->route('products.index');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Product $product ,$id)
+    public function show(Product $product, $id)
     {
-     $product= $product->find($id);
-     return inertia('admin/in-products/Product',[
-        "product"=>$product
-     ]);
+        $product = $product->find($id);
+        return inertia('admin/in-products/Product', [
+            "product" => $product
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateProductRequest $request, Product $product,$id)
+    public function update(UpdateProductRequest $request, Product $product)
     {
-    dd($request);
 
+
+
+        $validated = [
+            "name" => $request->name,
+            "user_id" => $request->user_id,
+            "serial_number" => $request->serial_number,
+            "sold" => $request->sold,
+            "description" => $request->description,
+            "quantity" => $request->price,
+            "quantity" => $request->quantity,
+            "price" => $request->price
+        ];
+        DB::table('products')->where('id',$request->id)->update($validated);
+
+        return redirect()->route('products.index');
     }
 
-      /**
+    /**
      * Edits the specified product in storage to be updated.
      */
-    public function editProduct( Product $product,$id)
+    public function editProduct(Product $product, $id)
     {
-      $product =$product->find($id);
-      return inertia('admin/in-products/update/Edit',[
-        "product"=>$product
-      ]);
-
+        $product = $product->find($id);
+        return inertia('admin/in-products/update/Edit', [
+            "product" => $product
+        ]);
     }
 
     /**
@@ -90,6 +104,5 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-
     }
 }

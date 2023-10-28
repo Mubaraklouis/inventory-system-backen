@@ -27,7 +27,7 @@ defineProps({
     <div>
         <nav class="bg-white border-gray-200 dark:bg-gray-900">
             <div
-                class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl p-4"
+                class="flex flex-wrap items-center justify-between max-w-screen-xl p-4 mx-auto"
             >
                 <Link class="flex items-center">
                     <img
@@ -56,9 +56,9 @@ defineProps({
         </nav>
 
         <section class="bg-white dark:bg-gray-900">
-            <div class="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16">
+            <div class="max-w-screen-xl px-4 py-8 mx-auto text-center lg:py-16">
                 <h1
-                    class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white"
+                    class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white"
                 >
                     We invest in the world’s potential
                 </h1>
@@ -74,7 +74,7 @@ defineProps({
                 >
                     <a
                         href="#"
-                        class="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900"
+                        class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900"
                     >
                         Get started
                         <svg
@@ -95,7 +95,7 @@ defineProps({
                     </a>
                     <a
                         href="#"
-                        class="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-gray-900 rounded-lg border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
+                        class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-gray-900 border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
                     >
                         Learn more
                     </a>
@@ -104,7 +104,7 @@ defineProps({
         </section>
 
         <footer class="bg-white shadow dark:bg-gray-900">
-            <div class="w-full max-w-screen-xl mx-auto p-4 md:py-8">
+            <div class="w-full max-w-screen-xl p-4 mx-auto md:py-8">
                 <div class="sm:flex sm:items-center sm:justify-between">
                     <a
                         href="https://flowbite.com/"
@@ -155,4 +155,4 @@ defineProps({
         </footer>
     </div>
 </template>
-<style></style>
+

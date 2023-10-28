@@ -47,7 +47,7 @@ Route::middleware('auth')->group(function () {
         Route::get('show/{id}', 'show')->name('product.show');
         Route::post('/store', 'store')->name('product.store');
         Route::get('/edit/{id}', 'editProduct')->name('product.edit');
-        Route::put('/edit/{id}', 'update')->name('product.update');
+        Route::put('/store/{id}', 'update')->name('product.update');
     });
 });
 

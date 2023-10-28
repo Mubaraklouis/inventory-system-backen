@@ -22,7 +22,7 @@ const form = useForm({
 });
 
 const submitForm = () => {
-    form.post(route("product.store"));
+    form.put(route("product.update",prop.product.id));
 };
 </script>
 
