@@ -7,9 +7,6 @@ const props =defineProps({
 })
 
 
-console.log(props.product)
-
-
 </script>
 
 
@@ -25,7 +22,7 @@ console.log(props.product)
 
     <div class="px-3 mb-2 ">
         <a href="#">
-            <h5 class="text-md font-semibold tracking-tight text-gray-900">{{product.name}}, Aluminium Case, Starlight Sport</h5>
+            <h5 class="text-md font-semibold tracking-tight text-gray-900">{{product.name}}, {{ product.description }}</h5>
         </a>
         <div class="flex items-center mt-2.5 mb-5">
             <svg class="w-4 h-4 text-yellow-300 mr-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">

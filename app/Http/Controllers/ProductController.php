@@ -67,8 +67,21 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateProductRequest $request, Product $product)
+    public function update(UpdateProductRequest $request, Product $product,$id)
     {
+    dd($request);
+
+    }
+
+      /**
+     * Edits the specified product in storage to be updated.
+     */
+    public function editProduct( Product $product,$id)
+    {
+      $product =$product->find($id);
+      return inertia('admin/in-products/update/Edit',[
+        "product"=>$product
+      ]);
 
     }
 

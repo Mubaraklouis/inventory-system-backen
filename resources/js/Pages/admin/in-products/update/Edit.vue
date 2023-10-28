@@ -1,9 +1,37 @@
+<script setup>
+import adminLayeout from "../../../../Layouts/admin/adminLayeout.vue";
+import { useForm, usePage } from "@inertiajs/vue3";
+import { computed, defineProps } from "vue";
+
+const prop = defineProps({
+    product: Array,
+});
+
+const page = usePage();
+
+const user = computed(() => page.props.auth.user);
+
+const form = useForm({
+    user_id: user.value.id,
+    name: prop.product.name,
+    price: prop.product.product,
+    serial_number: prop.product.serial_number,
+    description: prop.product.description,
+    quantity: prop.product.quantity,
+    sold: 0,
+});
+
+const submitForm = () => {
+    form.post(route("product.store"));
+};
+</script>
+
 <template>
     <div>
         <adminLayeout>
             <form
                 @submit.prevent="submitForm()"
-                class="in-product-form grid grid-cols-1 mb-5"
+                class="grid grid-cols-1 mb-5 in-product-form"
                 action=""
             >
                 <label class="text-sm font-extrabold" for="Product Name"
@@ -11,7 +39,7 @@
                 >
                 <input
                     v-model="form.name"
-                    class="text-xs p-1 text-gray-500"
+                    class="p-1 text-xs text-gray-500"
                     type="text"
                     placeholder="product name"
                 />
@@ -20,7 +48,7 @@
                 >
                 <input
                     v-model="form.serial_number"
-                    class="text-xs p-1 text-gray-500"
+                    class="p-1 text-xs text-gray-500"
                     type="number"
                     placeholder="serial number"
                 />
@@ -29,7 +57,7 @@
                 >
                 <input
                     v-model="form.quantity"
-                    class="text-xs p-1 text-gray-500"
+                    class="p-1 text-xs text-gray-500"
                     type="number"
                     placeholder="quantity"
                 />
@@ -38,7 +66,7 @@
                 >
                 <input
                     v-model="form.price"
-                    class="text-xs p-1 text-gray-500"
+                    class="p-1 text-xs text-gray-500"
                     type="number"
                     placeholder="price"
                 />
@@ -47,12 +75,12 @@
                 >
                 <input
                     v-model="form.description"
-                    class="text-xs p-1 text-gray-500"
+                    class="p-1 text-xs text-gray-500"
                     type="text"
                     placeholder="description"
                 />
 
-                <button type="submit" class="btn-component text-sm text-bold">
+                <button type="submit" class="text-sm btn-component text-bold">
                     submit
                 </button>
             </form>
@@ -60,28 +88,3 @@
     </div>
 </template>
 
-<script setup>
-import adminLayeout from "../../../Layouts/admin/adminLayeout.vue";
-import { useForm } from "@inertiajs/vue3";
-import { usePage } from "@inertiajs/vue3";
-import { computed } from "vue";
-
-const page = usePage();
-
-const user = computed(() => page.props.auth.user);
-
-const form = useForm({
-    user_id: user.value.id,
-    name: "",
-    price: "",
-    serial_number: "",
-    description: "",
-    quantity: "",
-    sold: 0,
-});
-
-const submitForm = () => {
-    form.post(route("product.store"));
-};
-</script>
-<style></style>
