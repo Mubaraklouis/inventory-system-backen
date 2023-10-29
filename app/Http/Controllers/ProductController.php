@@ -30,7 +30,7 @@ class ProductController extends Controller
 
 
         return inertia('admin/in-products/inproductsTable', [
-            "products" => Product::latest()->paginate(4)
+            "products" => Product::latest()->with(['category'])->paginate(4)
         ]);
     }
 

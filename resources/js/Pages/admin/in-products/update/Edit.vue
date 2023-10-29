@@ -14,7 +14,7 @@ const user = computed(() => page.props.auth.user);
 const form = useForm({
     user_id: user.value.id,
     name: prop.product.name,
-    price: prop.product.product,
+    price: prop.product.price,
     serial_number: prop.product.serial_number,
     description: prop.product.description,
     quantity: prop.product.quantity,

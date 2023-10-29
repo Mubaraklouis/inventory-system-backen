@@ -42,7 +42,7 @@ const deleteProduct=(id)=>{
                 <Link :href="route('product.show', product.id)">{{ product.name }}</Link>
               </th>
               <td class="px-6 py-4">{{ product.quantity }}</td>
-              <td class="px-6 py-4">Laptop</td>
+              <td class="px-6 py-4">{{ product.category.title }}</td>
               <td class="px-6 py-4">${{ product.price }}</td>
               <td class="px-6 py-4">
                 {{ product.serial_number }}
