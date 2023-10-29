@@ -144,7 +144,7 @@ const user = computed(() => page.props.auth.user);
             </nav>
 
             <!-- main page markup -->
-            <div class="col-span-4">
+            <div class="col-span-4" >
                 <!-- the h4 is for the main title -->
                 <div>
                     <h4 class="pl-20 pt-6 text-md uppercase font-extrabold">
@@ -153,14 +153,23 @@ const user = computed(() => page.props.auth.user);
                 </div>
                 <!-- here is the mini navbar for reports,inproducts etc.. -->
                 <div class="mt-10 mini-nav-border pl-20 w-full">
-                    <ul class="text-bold font-extrabold text-sm flex gap-4">
-                        <li>
-                            Dashboard
+                    <ul class=" middle-menu text-bold font-extrabold text-sm flex gap-4">
+                        <li class="cursor-pointer">
+                          <Link href="/dashboard">Dashboard</Link>
+                            <div class="indicator-bar-dashboard"></div>
+                        </li>
+                        <li class="secondary-text cursor-pointer">
+                            <Link :href="route('product.create')">In products</Link>
                             <div class="indicator-bar"></div>
                         </li>
-                        <li class="secondary-text">In products</li>
-                        <li class="secondary-text">outproduct</li>
-                        <li class="secondary-text">Reports</li>
+                        <li class="secondary-text cursor-pointer">
+                            <Link :href="route('products.index')">out product</Link>
+                            <div class="indicator-bar"></div>
+                        </li>
+                        <li class="secondary-text cursor-pointer">
+                            <Link href="#">Reports</Link>
+                            <div class="indicator-bar"></div>
+                        </li>
                     </ul>
                 </div>
 
@@ -239,4 +248,6 @@ const user = computed(() => page.props.auth.user);
     </div>
 </template>
 
-<style></style>
+<style>
+</style>
+  

@@ -30,7 +30,7 @@ class ProductController extends Controller
 
 
         return inertia('admin/in-products/inproductsTable', [
-            "products" => Product::paginate(4)
+            "products" => Product::latest()->paginate(4)
         ]);
     }
 
@@ -102,7 +102,9 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Product $product)
+    public function destroy(Product $product ,$id)
     {
+      $product = $product->find($id);
+      $product->delete();
     }
 }

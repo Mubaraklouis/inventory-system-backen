@@ -5,10 +5,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title inertia>{{ config('app.name', 'Laravel') }}</title>
+        <link  rel="stylesheet" href="../css/index.css">
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+        
 
 
         <!-- Scripts -->
@@ -80,7 +82,29 @@
     border-radius: 5px;
     background-color:var(--secondaryColor) ;
     margin-top: 0.2rem;
+    opacity: 0;
+    cursor: pointer;
   }
+
+  .indicator-bar-dashboard{
+    height: 4px;
+    border-radius: 5px;
+    background-color:var(--secondaryColor) ;
+    margin-top: 0.2rem;
+    opacity: 1;
+    cursor: pointer;
+  }
+  .indicator-bar:hover{
+    height: 4px;
+    border-radius: 5px;
+    background-color:var(--secondaryColor) ;
+    margin-top: 0.2rem;
+    opacity: 0;
+    cursor: pointer;
+    opacity: 1;
+    transition: 400ms all ease-in-out;
+  }
+
 
 /* secondar text color style here */
 .secondary-text{

@@ -59,7 +59,14 @@
     border-radius: 5px;
     background-color:var(--secondaryColor) ;
     margin-top: 0.2rem;
+    opacity: 0;
   }
+
+  .middle-menu  li:hover{
+  .indicator-bar{
+     opacity: 1;
+  }
+  };
 
 /* secondar text color style here */
 .secondary-text{
