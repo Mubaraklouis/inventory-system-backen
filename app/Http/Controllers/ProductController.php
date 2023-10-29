@@ -69,8 +69,10 @@ class ProductController extends Controller
     public function show(Product $product, $id)
     {
         $product = $product->find($id);
+        $categories= Category::all();
         return inertia('admin/in-products/Product', [
-            "product" => $product
+            "product" => $product,
+            "categories"=>$categories
         ]);
     }
 
@@ -85,6 +87,7 @@ class ProductController extends Controller
         $validated = [
             "name" => $request->name,
             "user_id" => $request->user_id,
+            "category_id"=>$request->category_id,
             "serial_number" => $request->serial_number,
             "sold" => $request->sold,
             "description" => $request->description,
@@ -103,8 +106,10 @@ class ProductController extends Controller
     public function editProduct(Product $product, $id)
     {
         $product = $product->find($id);
+        $categories= Category::all();
         return inertia('admin/in-products/update/Edit', [
-            "product" => $product
+            "product" => $product,
+            "categories"=>$categories
         ]);
     }
 

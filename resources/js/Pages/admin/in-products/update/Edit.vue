@@ -4,7 +4,8 @@ import { useForm, usePage } from "@inertiajs/vue3";
 import { computed, defineProps } from "vue";
 
 const prop = defineProps({
-    product: Array,
+    product: Object,
+    categories:Array
 });
 
 const page = usePage();
@@ -13,6 +14,7 @@ const user = computed(() => page.props.auth.user);
 
 const form = useForm({
     user_id: user.value.id,
+    category_id:prop.product.category_id,
     name: prop.product.name,
     price: prop.product.price,
     serial_number: prop.product.serial_number,
@@ -43,6 +45,13 @@ const submitForm = () => {
                     type="text"
                     placeholder="product name"
                 />
+                <label class="text-sm font-extrabold" for="Product Name"
+                    >Product Name</label
+                >
+
+                <select v-model="form.category_id" name="category_id" id="countries"   class="text-xs p-1 text-gray-500 rounded-lg bg-blue-100">
+            <option :value="category.id" v-for="category in categories" :key="category.id"> {{ category.title }}</option>
+        </select>
                 <label class="text-sm font-extrabold" for="Serial Number"
                     >Serial Number</label
                 >

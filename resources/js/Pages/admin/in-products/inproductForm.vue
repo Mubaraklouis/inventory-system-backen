@@ -8,10 +8,7 @@
                 <input v-model="form.serial_number" class="text-xs p-1 text-gray-500" type="number"
                     placeholder="serial number" />
                 <label class="text-sm font-extrabold" for="Serial Number">category</label>
-                <!-- <select class="text-xs p-1 text-gray-500 rounded-lg bg-blue-100">
-                    <option v-mode="form.category_id" class="text-xs p-1 text-gray-500 rounded-lg"
-                        v-for="category in categories" :key="category.id" value="56">{{ category.title }}</option>
-                </select> -->
+         
 
                 <select v-model="form.category_id" name="category_id" id="countries"   class="text-xs p-1 text-gray-500 rounded-lg bg-blue-100">
             <option :value="category.id" v-for="category in categories" :key="category.id" selected>{{ category.title }}</option>
