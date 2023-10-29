@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+use App\Models\Category;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
@@ -17,7 +18,12 @@ class ProductController extends Controller
     public function create()
     {
 
-        return inertia('admin/in-products/inproductForm');
+        $categories= Category::all();
+
+        return inertia('admin/in-products/inproductForm',
+    [
+        "categories"=>$categories
+    ]);
     }
 
 
@@ -42,6 +48,7 @@ class ProductController extends Controller
         $validated = [
             "name" => $request->name,
             "user_id" => $request->user_id,
+            "category_id" => $request->category_id,
             "serial_number" => $request->serial_number,
             "sold" => $request->sold,
             "description" => $request->description,
@@ -49,7 +56,9 @@ class ProductController extends Controller
             "quantity" => $request->quantity,
             "price" => $request->price
         ];
+    
 
+        
         Product::create($validated);
         return redirect()->route('products.index');
     }
