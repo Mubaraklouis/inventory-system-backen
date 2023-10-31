@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
+use App\Models\Product;
 
 class CategoryController extends Controller
 {
@@ -34,8 +35,8 @@ class CategoryController extends Controller
      */
     public function show(Category $category,$id)
     {
-        $products = Category::find($id)->products;
-        $category->find($id);
+        $products = Product::where('category_id','=',$id)->paginate(4);
+        $category=$category->find($id);
         return inertia(
             'admin/category/productsTable',
             [
