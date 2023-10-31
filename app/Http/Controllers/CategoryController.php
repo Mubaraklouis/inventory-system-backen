@@ -13,7 +13,13 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $categories = Category::all();
+        return inertia(
+            'admin/category/productsTable',
+            [
+                "categories" => $categories
+            ]
+        );
     }
 
     /**
@@ -21,15 +27,22 @@ class CategoryController extends Controller
      */
     public function store(StoreCategoryRequest $request)
     {
-      
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Category $category)
+    public function show(Category $category,$id)
     {
-  
+        $products = Category::find($id)->products;
+        $category->find($id);
+        return inertia(
+            'admin/category/productsTable',
+            [
+                "products" => $products,
+                "category"=>$category
+            ]
+        );
     }
 
     /**

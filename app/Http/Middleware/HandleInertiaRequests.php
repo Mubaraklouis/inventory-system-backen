@@ -2,6 +2,8 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 use Tightenco\Ziggy\Ziggy;
@@ -39,6 +41,8 @@ class HandleInertiaRequests extends Middleware
                 ...(new Ziggy)->toArray(),
                 'location' => $request->url(),
             ],
+
+            'products_data'=> Category::all()
         ];
     }
 }

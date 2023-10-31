@@ -1,8 +1,8 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
-use App\Models\Product;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -19,7 +19,7 @@ use Inertia\Inertia;
 */
 
 Route::get('/', function () {
-    $products = Product::all();
+
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
@@ -49,8 +49,21 @@ Route::middleware('auth')->group(function () {
         Route::get('/edit/{id}', 'editProduct')->name('product.edit');
         Route::put('/store/{id}', 'update')->name('product.update');
         Route::delete('/delete/{id}', 'destroy')->name('product.delete');
+
+
+    });
+
+       //creating products routes
+        Route::controller(CategoryController::class)->prefix('product/category')->group(function () {
+        Route::get('/index', 'index')->name('category.index');
+        Route::get('/{id}','show')->name('category.show');
+
     });
 });
+
+
+
+
 
 //gust routes
 
