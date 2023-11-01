@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 use App\Models\Product;
+use Illuminate\Support\Facades\DB;
 
 class CategoryController extends Controller
 {
@@ -16,10 +17,21 @@ class CategoryController extends Controller
     {
         $categories = Category::all();
         return inertia(
-            'admin/category/productsTable',
+            'admin/category/categoryTable',
             [
                 "categories" => $categories
             ]
+        );
+    }
+
+    /**
+     * Display a listing of the resource.
+     */
+    public function create(){
+
+        return inertia(
+            'admin/category/categoryForm',
+
         );
     }
 
@@ -28,6 +40,8 @@ class CategoryController extends Controller
      */
     public function store(StoreCategoryRequest $request)
     {
+        Category::create($request->all());
+        return redirect()->route('category.index');
     }
 
     /**
@@ -51,14 +65,30 @@ class CategoryController extends Controller
      */
     public function update(UpdateCategoryRequest $request, Category $category)
     {
-        //
+        DB::table('category')->where('id', $request->id)->update($request->all());
+        return redirect()->route('category.index');
     }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function editCategory( Category $category,$id)
+    {
+     $category = $category->find($id);
+     return inertia('admin/category/updateCategoryForm',[
+        "category"=>$category
+     ]);
+    }
+
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Category $category)
+    public function destroy(Category $category,$id)
     {
-        //
+
+        $category = $category->find($id);
+        $category->delete();
+
     }
 }

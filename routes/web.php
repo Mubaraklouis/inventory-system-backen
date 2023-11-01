@@ -49,16 +49,21 @@ Route::middleware('auth')->group(function () {
         Route::get('show/{id}', 'show')->name('product.show');
         Route::post('/store', 'store')->name('product.store');
         Route::get('/edit/{id}', 'editProduct')->name('product.edit');
-        Route::put('/store/{id}', 'update')->name('product.update');
+        Route::put('/update/{id}', 'update')->name('product.update');
         Route::delete('/delete/{id}', 'destroy')->name('product.delete');
 
 
     });
 
-       //creating products routes
+       //creating category routes
         Route::controller(CategoryController::class)->prefix('product/category')->group(function () {
         Route::get('/index', 'index')->name('category.index');
+        Route::get('/create','create')->name('category.create');
         Route::get('/{id}','show')->name('category.show');
+        Route::get('/edit/{id}', 'editCategory')->name('category.edit');
+        Route::put('update/{id}', 'update')->name('category.update');
+        Route::delete('delete/{id}', 'destroy')->name('category.delete');
+        Route::post('store','store')->name('category.store');
 
     });
 });

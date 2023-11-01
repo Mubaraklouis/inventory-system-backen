@@ -49,7 +49,19 @@ const products = computed(() => page.props.products_data)
                                 <div>
                                     <img class="w-4 h-4" src="/icons/box-open.png" alt="" />
                                 </div>
-                                <Link href="/product/index"> Out products </Link>
+                                <Link href="/product/index"> All products </Link>
+                            </li>
+                               <li class="flex items-center gap-y-6 gap-x-2">
+                                <div>
+                                    <img class="w-4 h-4" src="/icons/file-medical-alt.png" alt="" />
+                                </div>
+                            <Link :href="route('category.index')">categories </Link>
+                            </li>
+                               <li class="flex items-center gap-y-6 gap-x-2">
+                                <div>
+                                    <img class="w-4 h-4" src="/icons/file-medical-alt.png" alt="" />
+                                </div>
+                            <Link :href="route('category.create')">create category </Link>
                             </li>
                             <li class="flex items-center gap-y-6 gap-x-2">
                                 <div>
