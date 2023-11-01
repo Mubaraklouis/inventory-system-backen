@@ -6,7 +6,6 @@ use App\Models\Product;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\Category;
-use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
@@ -18,17 +17,19 @@ class ProductController extends Controller
     public function create()
     {
 
-        $categories= Category::all();
+        $categories = Category::all();
 
-        return inertia('admin/in-products/inproductForm',
-    [
-        "categories"=>$categories
-    ]);
+        return inertia(
+            'admin/in-products/inproductForm',
+            [
+                "categories" => $categories
+            ]
+        );
     }
 
 
     /**
-     * Display a listing of the resource.
+     * Display a listing of the sold products.
      */
     public function index()
     {
@@ -36,9 +37,23 @@ class ProductController extends Controller
 
 
         return inertia('admin/in-products/inproductsTable', [
-            "products" => Product::latest()->with(['category'])->paginate(4)
+            "products" => Product::latest()->where('sold', '=', 0)->with(['category'])->paginate(4)
         ]);
     }
+
+    /**
+     * Display a listing of the unsold products.
+     */
+    public function sold()
+    {
+
+
+
+        return inertia('admin/out-products/outProductTable', [
+            "products" => Product::latest()->where('sold', '=', 1)->with(['category'])->paginate(4)
+        ]);
+    }
+
 
     /**
      * Store a newly created resource in storage.
@@ -56,9 +71,9 @@ class ProductController extends Controller
             "quantity" => $request->quantity,
             "price" => $request->price
         ];
-    
 
-        
+
+
         Product::create($validated);
         return redirect()->route('products.index');
     }
@@ -69,10 +84,10 @@ class ProductController extends Controller
     public function show(Product $product, $id)
     {
         $product = $product->find($id);
-        $categories= Category::all();
+        $categories = Category::all();
         return inertia('admin/in-products/Product', [
             "product" => $product,
-            "categories"=>$categories
+            "categories" => $categories
         ]);
     }
 
@@ -87,7 +102,7 @@ class ProductController extends Controller
         $validated = [
             "name" => $request->name,
             "user_id" => $request->user_id,
-            "category_id"=>$request->category_id,
+            "category_id" => $request->category_id,
             "serial_number" => $request->serial_number,
             "sold" => $request->sold,
             "description" => $request->description,
@@ -95,7 +110,7 @@ class ProductController extends Controller
             "quantity" => $request->quantity,
             "price" => $request->price
         ];
-        DB::table('products')->where('id',$request->id)->update($validated);
+        DB::table('products')->where('id', $request->id)->update($validated);
 
         return redirect()->route('products.index');
     }
@@ -106,19 +121,19 @@ class ProductController extends Controller
     public function editProduct(Product $product, $id)
     {
         $product = $product->find($id);
-        $categories= Category::all();
+        $categories = Category::all();
         return inertia('admin/in-products/update/Edit', [
             "product" => $product,
-            "categories"=>$categories
+            "categories" => $categories
         ]);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Product $product ,$id)
+    public function destroy(Product $product, $id)
     {
-      $product = $product->find($id);
-      $product->delete();
+        $product = $product->find($id);
+        $product->delete();
     }
 }

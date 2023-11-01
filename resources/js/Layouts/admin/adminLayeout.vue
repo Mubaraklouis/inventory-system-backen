@@ -1,21 +1,16 @@
 <script setup>
-import { Link } from "@inertiajs/vue3";
+import { Link, usePage } from "@inertiajs/vue3";
 import { computed } from "vue";
-import { usePage } from "@inertiajs/vue3";
-
 import DropdownLink from "@/Components/DropdownLink.vue";
 import Dropdown from '@/Components/Dropdown.vue';
 
-import NavLink from '@/Components/NavLink.vue';
-import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 
-
-//this is the intertia function that allows the access of shared data
+//this is the inertia function that allows the access of shared data
 const page = usePage();
 
 //created a computed property to get user info
 const user = computed(() => page.props.auth.user);
-//querring all the products
+//querying all the products
 const products = computed(() => page.props.products_data)
 
 
@@ -23,10 +18,10 @@ const products = computed(() => page.props.products_data)
 
 <template>
     <div>
-        <section class="grid grid-cols-5 h-full">
-            <nav class="w-full nav-border nav-border">
+        <section class="grid h-full grid-cols-5">
+            <nav class="w-full nav-border">
                 <!-- creating the logo div -->
-                <div class="grid grid-cols-2 gap-2 w-10">
+                <div class="grid w-10 grid-cols-2 gap-2">
                     <div>
                         <img class="w-6 h-6" src="/icons/delivery-cart.png" alt="" />
                     </div>
@@ -35,52 +30,52 @@ const products = computed(() => page.props.products_data)
                     </div>
                 </div>
                 <section>
-                    <div class="mt-16">
-                        <ul class="text-bold font-extrabold text-xs flex flex-col gap-5">
-                            <li class="flex gap-y-6 gap-x-2 items-center">
+                    <div class="mt-28">
+                        <ul class="flex flex-col gap-5 text-xs font-extrabold text-bold">
+                            <li class="flex items-center gap-y-6 gap-x-2">
                                 <div>
                                     <img class="w-4 h-4" src="/icons/home.png" alt="" />
                                 </div>
                                 <Link href="/dashboard">Dashboard</Link>
                             </li>
-                            <li class="flex gap-y-6 gap-x-2 items-center">
+                            <li class="flex items-center gap-y-6 gap-x-2">
                                 <div>
                                     <img class="w-4 h-4" src="/icons/delivery-cart.png" alt="" />
                                 </div>
 
                                 <Link href="/product/add-product"> In products </Link>
                             </li>
-                            <li class="flex gap-y-6 gap-x-2 items-center">
+                            <li class="flex items-center gap-y-6 gap-x-2">
                                 <div>
                                     <img class="w-4 h-4" src="/icons/box-open.png" alt="" />
                                 </div>
                                 <Link href="/product/index"> Out products </Link>
                             </li>
-                            <li class="flex gap-y-6 gap-x-2 items-center">
+                            <li class="flex items-center gap-y-6 gap-x-2">
                                 <div>
                                     <img class="w-4 h-4" src="/icons/file-medical-alt.png" alt="" />
                                 </div>
                                 Reports
                             </li>
-                            <li class="flex gap-y-6 gap-x-2 items-center">
+                            <li class="flex items-center gap-y-6 gap-x-2">
                                 <div>
                                     <img class="w-4 h-4" src="/icons/calendar-lines.png" alt="" />
                                 </div>
                                 Calender
                             </li>
-                            <li class="flex gap-y-6 gap-x-2 items-center">
+                            <li class="flex items-center gap-y-6 gap-x-2">
                                 <div>
                                     <img class="w-4 h-4" src="/icons/user.png" alt="" />
                                 </div>
                                 Users
                             </li>
-                            <li class="flex gap-y-6 gap-x-2 items-center">
+                            <li class="flex items-center gap-y-6 gap-x-2">
                                 <div>
                                     <img class="w-4 h-4" src="/icons/envelope.png" alt="" />
                                 </div>
                                 Messages
                             </li>
-                            <li class="flex gap-y-6 gap-x-2 items-center">
+                            <li class="flex items-center gap-y-6 gap-x-2">
                                 <div>
                                     <img class="w-4 h-4" src="/icons/settings.png" alt="" />
                                 </div>
@@ -91,14 +86,14 @@ const products = computed(() => page.props.products_data)
                 </section>
 
                 <!-- creating the user section and the icon -->
-                <div class="mt-32 pt-2 pb-2">
-                    <!-- this div contains the user avater -->
+                <div class="pt-2 pb-2 mt-48">
+                    <!-- this div contains the user avatar -->
 
                     <div class="flex gap-2 align-center rounded-border">
-                        <img class="w-12 h-12 user-border rounded-full" src="/images/profile.jpg" alt="" />
+                        <img class="w-12 h-12 rounded-full user-border" src="/images/profile.jpg" alt="" />
                         <div>
-                            <!-- <h5 class="text-sm font-extrabold mt-2">{{ user.name }}</h5> -->
-                            <h5 class="text-sm font-extrabold mt-2">
+
+                            <h5 class="mt-2 text-sm font-extrabold">
                                 <Link href="/profile">{{ user.name }}</Link>
                             </h5>
                             <h5 class="text-xs secondary-text">
@@ -113,26 +108,26 @@ const products = computed(() => page.props.products_data)
             <div class="col-span-4">
                 <!-- the h4 is for the main title -->
                 <div>
-                    <h4 class="pl-20 pt-6 text-md uppercase font-extrabold">
+                    <h4 class="pt-6 pl-20 font-extrabold uppercase text-md">
                         In products
                     </h4>
                 </div>
-                <!-- here is the mini navbar for reports,inproducts etc.. -->
-                <div class="mt-10 mini-nav-border pl-20 w-full">
-                    <ul class=" middle-menu text-bold font-extrabold text-sm flex gap-4">
+                <!-- here is the mini navbar for reports,in products etc.. -->
+                <div class="w-full pl-20 mt-10 mini-nav-border">
+                    <ul class="flex gap-4 text-sm font-extrabold middle-menu text-bold">
                         <li class="cursor-pointer">
                             <Link href="/dashboard">Dashboard</Link>
                             <div class="indicator-bar-dashboard"></div>
                         </li>
-                        <li class="secondary-text cursor-pointer">
+                        <li class="cursor-pointer secondary-text">
                             <Link :href="route('product.create')">In products</Link>
                             <div class="indicator-bar"></div>
                         </li>
-                        <li class="secondary-text cursor-pointer">
-                            <Link :href="route('products.index')">out product</Link>
+                        <li class="cursor-pointer secondary-text">
+                            <Link :href="route('products.index')">unsold product</Link>
                             <div class="indicator-bar"></div>
                         </li>
-                        <li class="secondary-text cursor-pointer">
+                        <li class="cursor-pointer secondary-text">
                             <Link href="#">Reports</Link>
                             <div class="indicator-bar"></div>
                         </li>
@@ -140,11 +135,11 @@ const products = computed(() => page.props.products_data)
                 </div>
 
                 <!-- forms inputs
-       search->it is the seach
+       search->it is the search
        calender dropdown -->
-                <div class="filters-inputs m-8 flex gap-x-8 pl-12">
-                    <div class="calender-input grid grid-cols-3 gap-2 justify-center items-center pl-4">
-                        <div class="col-span-2 flex gap-2">
+                <div class="flex pl-12 m-8 filters-inputs gap-x-8">
+                    <div class="grid items-center justify-center grid-cols-3 gap-2 pl-4 calender-input">
+                        <div class="flex col-span-2 gap-2">
                             <img class="w-6 h-6" src="/icons/calendar-lines-pen.png" alt="" />
                             <div>
                                 <p class="text-xs font-bold text-gray-500">
@@ -160,45 +155,17 @@ const products = computed(() => page.props.products_data)
                             <img class="w-4 h-4" src="/icons/angle-small-down.png" alt="" />
                         </div>
                     </div>
-                    <!-- workinf on the category -->
-                    <!-- <select
-                        class="calender-input grid grid-cols-3 gap-2 justify-center items-center pl-4 cursor-pointer"
-                    >
-                        <div class="col-span-2 flex gap-2">
-                            <img
-                                class="w-6 h-6"
-                                src="/icons/object-group.png"
-                                alt=""
-                            />
-                            <div>
-                                <p class="text-xs font-bold text-gray-500">
-                                    Category
-                                </p>
-                                <h4 class="text-xs font-extrabold">All</h4>
-                            </div>
-                        </div>
-                        <br>
-                        <option :value="category.id" v-for="category in products" :key="category.id" class="cursor-pointer mt-4"><Link :href="route('category.show',category.id)" >{{ category.title }}</Link></option>
+                    <!-- worming on the category -->
 
-
-                        <div>
-                            <img
-                                class="w-4 h-4"
-                                src="/icons/angle-small-down.png"
-                                alt=""
-                            />
-                        </div>
-                    </select> -->
-
-                    <div class="calender-input grid grid-cols-3 gap-2 justify-center items-center pl-4 cursor-pointer">
+                    <div class="grid items-center justify-center grid-cols-3 gap-2 pl-4 cursor-pointer calender-input">
                         <!-- Settings Dropdown -->
-                        <div class="ml-1 relative">
+                        <div class="relative ml-1">
                             <Dropdown align="center" width="48">
                                 <br>
                                 <template #trigger>
                                     <span class="inline-flex rounded-md ">
                                         <button type="button"
-                                            class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
+                                            class="inline-flex items-center px-3 py-2 text-sm font-medium leading-4 text-gray-500 transition duration-150 ease-in-out border border-transparent rounded-md hover:text-gray-700 focus:outline-none">
                                             categories
 
                                             <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg"
@@ -226,11 +193,11 @@ const products = computed(() => page.props.products_data)
                     <!-- code for the search button -->
 
 
-                    <input class="calender-input grid grid-cols-3 gap-2 justify-center items-center pl-4 text-xs"
+                    <input class="grid items-center justify-center grid-cols-3 gap-2 pl-4 text-xs calender-input"
                         placeholder="search  CTR+K" />
                 </div>
 
-                <div class="grid grid-cols-1 justify-center pl-20">
+                <div class="grid justify-center grid-cols-1 pl-20">
                     <!-- this where all the components are going to be loaded -->
                     <slot />
                 </div>

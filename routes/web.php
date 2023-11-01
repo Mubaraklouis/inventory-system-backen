@@ -43,6 +43,7 @@ Route::middleware('auth')->group(function () {
     //creating products routes
     Route::controller(ProductController::class)->prefix('product')->group(function () {
         Route::get('/index', 'index')->name('products.index');
+        Route::get('/sold','sold')->name('product.sold');
         Route::get('/add-product', 'create')->name('product.create');
         Route::get('show/{id}', 'show')->name('product.show');
         Route::post('/store', 'store')->name('product.store');
@@ -60,14 +61,5 @@ Route::middleware('auth')->group(function () {
 
     });
 });
-
-
-
-
-
-//gust routes
-
-
-
 
 require __DIR__ . '/auth.php';

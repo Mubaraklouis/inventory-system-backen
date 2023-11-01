@@ -33,7 +33,7 @@ defineProps({
                     <img
                         src="icons/delivery-cart.png"
                         class="h-8 mr-3"
-                        alt="Flowbite Logo"
+                        alt="Florine Logo"
                     />
                     <span
                         class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white"
@@ -113,7 +113,7 @@ defineProps({
                         <img
                             src="icons/delivery-cart.png"
                             class="h-8 mr-3"
-                            alt="Flowbite Logo"
+                            alt="Floweret Logo"
                         />
                         <span
                             class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white"
