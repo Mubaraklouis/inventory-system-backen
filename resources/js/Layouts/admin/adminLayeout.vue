@@ -124,7 +124,15 @@ const products = computed(() => page.props.products_data)
                             <div class="indicator-bar"></div>
                         </li>
                         <li class="cursor-pointer secondary-text">
-                            <Link :href="route('products.index')">unsold product</Link>
+                            <Link :href="route('product.unsold')">unsold products</Link>
+                            <div class="indicator-bar"></div>
+                        </li>
+                        <li class="cursor-pointer secondary-text">
+                            <Link :href="route('product.sold')">sold products</Link>
+                            <div class="indicator-bar"></div>
+                        </li>
+                        <li class="cursor-pointer secondary-text">
+                            <Link :href="route('products.index')">All products</Link>
                             <div class="indicator-bar"></div>
                         </li>
                         <li class="cursor-pointer secondary-text">

@@ -20,7 +20,7 @@ class ProductController extends Controller
         $categories = Category::all();
 
         return inertia(
-            'admin/in-products/inproductForm',
+            'admin/products/productForm',
             [
                 "categories" => $categories
             ]
@@ -36,23 +36,37 @@ class ProductController extends Controller
 
 
 
-        return inertia('admin/in-products/inproductsTable', [
-            "products" => Product::latest()->where('sold', '=', 0)->with(['category'])->paginate(4)
+        return inertia('admin/products/productsTable', [
+            "products" => Product::latest()->with(['category'])->paginate(4)
         ]);
     }
 
     /**
-     * Display a listing of the unsold products.
+     * Display a listing of the sold products.
      */
     public function sold()
     {
 
 
 
-        return inertia('admin/out-products/outProductTable', [
+        return inertia('admin/products/productsTable', [
             "products" => Product::latest()->where('sold', '=', 1)->with(['category'])->paginate(4)
         ]);
     }
+
+    /**
+     * Display a listing of the sold products.
+     */
+    public function unsold()
+    {
+
+
+
+        return inertia('admin/products/productsTable', [
+            "products" => Product::latest()->where('sold', '=', 0)->with(['category'])->paginate(4)
+        ]);
+    }
+
 
 
     /**
@@ -85,7 +99,7 @@ class ProductController extends Controller
     {
         $product = $product->find($id);
         $categories = Category::all();
-        return inertia('admin/in-products/Product', [
+        return inertia('admin/products/Product', [
             "product" => $product,
             "categories" => $categories
         ]);
@@ -122,7 +136,7 @@ class ProductController extends Controller
     {
         $product = $product->find($id);
         $categories = Category::all();
-        return inertia('admin/in-products/update/Edit', [
+        return inertia('admin/products/update/Edit', [
             "product" => $product,
             "categories" => $categories
         ]);

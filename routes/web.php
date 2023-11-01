@@ -44,6 +44,7 @@ Route::middleware('auth')->group(function () {
     Route::controller(ProductController::class)->prefix('product')->group(function () {
         Route::get('/index', 'index')->name('products.index');
         Route::get('/sold','sold')->name('product.sold');
+        Route::get('/unsold', 'unsold')->name('product.unsold');
         Route::get('/add-product', 'create')->name('product.create');
         Route::get('show/{id}', 'show')->name('product.show');
         Route::post('/store', 'store')->name('product.store');
