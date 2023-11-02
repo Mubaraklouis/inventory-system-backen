@@ -50,6 +50,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/store', 'store')->name('product.store');
         Route::get('/edit/{id}', 'editProduct')->name('product.edit');
         Route::put('/update/{id}', 'update')->name('product.update');
+        Route::put('/sell/{id}','sell')->name('product.sell');
         Route::delete('/delete/{id}', 'destroy')->name('product.delete');
 
 

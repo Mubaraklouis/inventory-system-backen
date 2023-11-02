@@ -1,15 +1,21 @@
 <script setup>
 import { Link , useForm } from '@inertiajs/vue3';
 import { defineProps } from 'vue';
+import { computed } from 'vue';
 
 defineProps({
     category: Object,
     products: Array
 });
 
-
+const user = computed(() => page.props.auth.user);
 
 const form = useForm({
+    id: null,
+});
+
+
+const sellForm = useForm({
     id: null,
 });
 
@@ -25,6 +31,14 @@ const productAvailabilty = (status) => {
     else {
     return "unsold"
 }
+}
+
+
+
+const sell = ( id) => {
+    //make a put request with the product id
+    sellForm.put(route('product.sell',id))
+
 }
 
 </script>
@@ -73,13 +87,8 @@ const productAvailabilty = (status) => {
                     </Link>
                   </div>
                    <div class="p-2 font-medium text-white bg-blue-500 rounded-md hover:underline">
-                    <Link :href="
-                      route(
-                        'product.edit',
-                        product.id
-                      )
-                    ">
-                    <img class="w-4 h-4" src="/icons/envelope.png" alt />
+                    <Link @click="sell(product.id)" as="button">
+                    <img class="w-4 h-4" src="/icons/selling.png" alt />
                     </Link>
                   </div>
                 </div>

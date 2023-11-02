@@ -129,6 +129,22 @@ class ProductController extends Controller
         return redirect()->route('products.index');
     }
 
+
+
+        /**
+     * Update the specified sell in storage.
+     */
+    public function sell(UpdateProductRequest $request, Product $product ,$id)
+    {
+
+        $validated = [
+            "sold" =>1,
+        ];
+        DB::table('products')->where('id', $id)->update($validated);
+
+        return redirect()->route('products.index');
+    }
+
     /**
      * Edits the specified product in storage to be updated.
      */

@@ -53,13 +53,13 @@ const products = computed(() => page.props.products_data)
                             </li>
                                <li class="flex items-center gap-y-6 gap-x-2">
                                 <div>
-                                    <img class="w-4 h-4" src="/icons/file-medical-alt.png" alt="" />
+                                    <img class="w-4 h-4" src="/icons/object-group.png" alt="" />
                                 </div>
                             <Link :href="route('category.index')">categories </Link>
                             </li>
                                <li class="flex items-center gap-y-6 gap-x-2">
                                 <div>
-                                    <img class="w-4 h-4" src="/icons/file-medical-alt.png" alt="" />
+                                    <img class="w-4 h-4" src="/icons/pen-clip.png" alt="" />
                                 </div>
                             <Link :href="route('category.create')">create category </Link>
                             </li>
