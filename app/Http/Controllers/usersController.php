@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class usersController extends Controller
 {
@@ -37,12 +38,33 @@ class usersController extends Controller
      return inertia('admin/users/userForm');
     }
 
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function editUser( string $id)
+    {
+        $user = User::find($id);
+       return inertia('admin/users/editUser',
+    [
+        'user'=>$user
+    ]);
+    }
+
+
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validated=[
+            'name'=>$request->name,
+            'email'=>$request->email,
+            'password'=>$request->password
+
+        ];
+        DB::table('users')->where('id', $id)->update($validated);
+        return redirect()->route('users.index');
     }
 
     /**

@@ -25,7 +25,7 @@
                   <div class="p-2 font-medium text-white rounded-md hover:underline table-primary">
                     <Link :href="
                       route(
-                        'product.edit',
+                        'user.edit',
                         user.id
                       )
                     ">
