@@ -72,6 +72,8 @@ Route::middleware('auth')->group(function () {
         Route::controller(usersController::class)->prefix('users')->group(function(){
               Route::get('/index','index')->name('users.index');
               Route::delete('/delete/{id}','destroy')->name('users.delete');
+              Route::get('/create','create')->name('users.create');
+              Route::post('/store','store')->name('user.store');
         });
 
     });

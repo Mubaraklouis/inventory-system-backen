@@ -25,15 +25,16 @@ class usersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       User::create($request->all());
+       return redirect()->route('users.index');
     }
 
     /**
-     * Display the specified resource.
+     * Display the form for user.
      */
-    public function show(string $id)
+    public function create()
     {
-        //
+     return inertia('admin/users/userForm');
     }
 
     /**
