@@ -63,6 +63,12 @@ const products = computed(() => page.props.products_data)
                                 </div>
                             <Link :href="route('category.create')">create category </Link>
                             </li>
+                             <li class="flex items-center gap-y-6 gap-x-2">
+                                <div>
+                                    <img class="w-4 h-4" src="/icons/user.png" alt="" />
+                                </div>
+                             <Link :href="route('users.index')">users </Link>
+                            </li>
                             <li class="flex items-center gap-y-6 gap-x-2">
                                 <div>
                                     <img class="w-4 h-4" src="/icons/file-medical-alt.png" alt="" />
@@ -74,12 +80,6 @@ const products = computed(() => page.props.products_data)
                                     <img class="w-4 h-4" src="/icons/calendar-lines.png" alt="" />
                                 </div>
                                 Calender
-                            </li>
-                            <li class="flex items-center gap-y-6 gap-x-2">
-                                <div>
-                                    <img class="w-4 h-4" src="/icons/user.png" alt="" />
-                                </div>
-                                Users
                             </li>
                             <li class="flex items-center gap-y-6 gap-x-2">
                                 <div>

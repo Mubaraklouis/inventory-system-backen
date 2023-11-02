@@ -3,6 +3,7 @@
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\usersController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -65,6 +66,13 @@ Route::middleware('auth')->group(function () {
         Route::put('update/{id}', 'update')->name('category.update');
         Route::delete('delete/{id}', 'destroy')->name('category.delete');
         Route::post('store','store')->name('category.store');
+
+
+        //users route
+        Route::controller(usersController::class)->prefix('users')->group(function(){
+              Route::get('/index','index')->name('users.index');
+              Route::delete('/delete/{id}','destroy')->name('users.delete');
+        });
 
     });
 });

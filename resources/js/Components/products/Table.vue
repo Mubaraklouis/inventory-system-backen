@@ -33,14 +33,11 @@ const productAvailabilty = (status) => {
 }
 }
 
-
-
 const sell = ( id) => {
     //make a put request with the product id
     sellForm.put(route('product.sell',id))
 
 }
-
 </script>
 <template>
     <div class="relative mr-16 overflow-x-auto shadow-md sm:rounded-lg">
