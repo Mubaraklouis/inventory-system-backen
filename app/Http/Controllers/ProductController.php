@@ -74,7 +74,7 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreProductRequest $request)
+    public function store(StoreProductRequest $request,Product $product)
     {
         $validated = [
             "name" => $request->name,
@@ -88,7 +88,7 @@ class ProductController extends Controller
             "price" => $request->price
         ];
 
-
+        $this->authorize('create',$product);
 
         Product::create($validated);
         return redirect()->route('products.index');
@@ -126,6 +126,7 @@ class ProductController extends Controller
             "quantity" => $request->quantity,
             "price" => $request->price
         ];
+        $this->authorize('update',$product);
         DB::table('products')->where('id', $request->id)->update($validated);
 
         return redirect()->route('products.index');
@@ -143,9 +144,7 @@ class ProductController extends Controller
             "sold" =>1,
         ];
 
-        if (!FacadesGate::any(['can-sell','can-delete-product'], $product)) {
-            abort(403);
-        }
+        $this->authorize('sell',$product);
 
         DB::table('products')->where('id', $id)->update($validated);
 
@@ -171,9 +170,8 @@ class ProductController extends Controller
     public function destroy(Product $product, $id)
     {
 
-        if (!FacadesGate::allows('can-delete-product', $product)) {
-            abort(403);
-        }
+
+        $this->authorize('delete',$product);
         $product = $product->find($id);
         $product->delete();
     }

@@ -38,8 +38,9 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreCategoryRequest $request)
+    public function store(StoreCategoryRequest $request ,Category $category)
     {
+        $this->authorize('create',$category);
         Category::create($request->all());
         return redirect()->route('category.index');
     }
@@ -65,6 +66,7 @@ class CategoryController extends Controller
      */
     public function update(UpdateCategoryRequest $request, Category $category)
     {
+        $this->authorize('update',$category);
         DB::table('category')->where('id', $request->id)->update($request->all());
         return redirect()->route('category.index');
     }
@@ -75,6 +77,7 @@ class CategoryController extends Controller
     public function editCategory( Category $category,$id)
     {
      $category = $category->find($id);
+     $this->authorize('update',$category);
      return inertia('admin/category/updateCategoryForm',[
         "category"=>$category
      ]);
@@ -88,6 +91,7 @@ class CategoryController extends Controller
     {
 
         $category = $category->find($id);
+        $this->authorize('delete',$category);
         $category->delete();
 
     }

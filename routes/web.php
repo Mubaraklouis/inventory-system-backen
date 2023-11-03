@@ -68,17 +68,18 @@ Route::middleware('auth')->group(function () {
         Route::post('store','store')->name('category.store');
 
 
-        //users route
-        Route::controller(usersController::class)->prefix('users')->group(function(){
-              Route::get('/index','index')->name('users.index');
-              Route::delete('/delete/{id}','destroy')->name('users.delete');
-              Route::get('/create','create')->name('users.create');
-              Route::post('/store','store')->name('user.store');
-              Route::put('/update/{id}','update')->name('user.update');
-              Route::get('edit/{id}','editUser')->name('user.edit');
-        });
 
     });
+
+      //users route
+      Route::controller(usersController::class)->prefix('users')->group(function(){
+        Route::get('/index','index')->name('users.index');
+        Route::delete('/delete/{id}','destroy')->name('users.delete');
+        Route::get('/create','create')->name('users.create');
+        Route::post('/store','store')->name('user.store');
+        Route::put('/update/{id}','update')->name('user.update');
+        Route::get('edit/{id}','editUser')->name('user.edit');
+  });
 });
 
 require __DIR__ . '/auth.php';

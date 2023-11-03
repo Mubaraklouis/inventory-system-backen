@@ -15,19 +15,22 @@ class usersController extends Controller
     {
 
         $user = User::latest()->paginate(4);
-       return inertia('admin/users/users',
-    [
-        'users' =>$user
-    ]);
+        return inertia(
+            'admin/users/users',
+            [
+                'users' => $user
+            ]
+        );
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, User $user)
     {
-       User::create($request->all());
-       return redirect()->route('users.index');
+        $this->authorize(['create'],$user);
+        User::create($request->all());
+        return redirect()->route('users.index');
     }
 
     /**
@@ -35,32 +38,36 @@ class usersController extends Controller
      */
     public function create()
     {
-     return inertia('admin/users/userForm');
+        return inertia('admin/users/userForm');
     }
 
 
     /**
      * Update the specified resource in storage.
      */
-    public function editUser( string $id)
+    public function editUser(string $id)
     {
         $user = User::find($id);
-       return inertia('admin/users/editUser',
-    [
-        'user'=>$user
-    ]);
+        return inertia(
+            'admin/users/editUser',
+            [
+                'user' => $user
+            ]
+        );
     }
 
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $id, User $user)
     {
-        $validated=[
-            'name'=>$request->name,
-            'email'=>$request->email,
-            'password'=>$request->password
+
+        $this->authorize(['update'], $user);
+        $validated = [
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => $request->password
 
         ];
         DB::table('users')->where('id', $id)->update($validated);
@@ -70,10 +77,11 @@ class usersController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $id, User $user)
     {
-  $user = User::find($id);
-  $user->delete();
-  return redirect()->route('users.index');
+        $this->authorize(['delete'], $user);
+        $user = User::find($id);
+        $user->delete();
+        return redirect()->route('users.index');
     }
 }
