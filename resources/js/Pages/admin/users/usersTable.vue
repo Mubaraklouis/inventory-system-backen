@@ -7,7 +7,7 @@
               <th scope="col" class="px-3 py-4">Name</th>
               <th scope="col" class="px-3 py-4">Email</th>
               <th scope="col" class="px-3 py-4">Roll</th>
-              <th scope="col" class="px-3 py-4">Action</th>
+              <th v-if="User.is_admin" scope="col" class="px-3 py-4">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -16,8 +16,8 @@
                 <Link>{{ user.name }}</Link>
               </th>
               <td class="px-6 py-4">{{ user.email }}</td>
-              <td class="px-6 py-4">{{ roll }}</td>
-              <td class="px-6 py-4">
+              <td class="px-6 py-4">{{ checkRoll(user.is_admin,user.is_seller) }}</td>
+              <td v-if="User.is_admin" class="px-6 py-4">
                 <div class="flex gap-4">
                   <div class="p-2 font-medium text-white bg-red-400 rounded-md hover:underline">
                     <Link @click="deleteUser(user.id)" as="button" ><img class="w-4 h-4" src="/icons/trash.png" alt /></Link>
@@ -41,10 +41,23 @@
 </template>
 
 <script setup>
-import { Link,useForm } from '@inertiajs/vue3';
-import { defineProps,ref  } from 'vue';
+import { Link,useForm,usePage } from '@inertiajs/vue3';
+import { defineProps,ref,computed  } from 'vue';
 
+const page =usePage()
+const User = computed(()=>page.props.auth.user);
 const roll = ref('Seller');
+const checkRoll =(admin,seller)=>{
+    if(admin){
+        return "Admin"
+    }
+    else if(seller){
+        return "seller"
+    }
+    else{
+        return "Regular account"
+    }
+};
 
 defineProps({
     users:Array

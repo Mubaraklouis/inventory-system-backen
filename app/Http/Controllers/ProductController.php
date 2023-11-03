@@ -142,6 +142,11 @@ class ProductController extends Controller
         $validated = [
             "sold" =>1,
         ];
+
+        if (!FacadesGate::any(['can-sell','can-delete-product'], $product)) {
+            abort(403);
+        }
+
         DB::table('products')->where('id', $id)->update($validated);
 
         return redirect()->route('products.index');

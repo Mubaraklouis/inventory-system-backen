@@ -9,7 +9,7 @@
               <th scope="col" class="px-3 py-4">category name</th>
               <th scope="col" class="px-3 py-4"></th>
               <th scope="col" class="px-3 py-4"></th>
-              <th scope="col" class="px-3 py-4">Action</th>
+              <th v-if="user.is_admin" scope="col" class="px-3 py-4">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -24,9 +24,9 @@
 
               </th>
 
-              <td class="px-6 py-4">
+              <td v-if="user.is_admin" class="px-6 py-4">
                 <div class="flex gap-4">
-                  <div class="p-2 font-medium text-white bg-red-400 rounded-md hover:underline">
+                  <div  class="p-2 font-medium text-white bg-red-400 rounded-md hover:underline">
                     <Link @click="deleteProduct(category.id)" as="button" ><img class="w-4 h-4" src="/icons/trash.png" alt /></Link>
                   </div>
                   <div class="p-2 font-medium text-white rounded-md hover:underline table-primary">
@@ -53,8 +53,13 @@
 </template>
 <script setup>
 import adminLayeout from '@/Layouts/admin/adminLayeout.vue';
-import { defineProps } from 'vue';
-import { Link,useForm } from '@inertiajs/vue3';
+import { defineProps,computed } from 'vue';
+import { Link,useForm ,usePage} from '@inertiajs/vue3';
+
+
+const page = usePage();
+
+const user = computed(()=>page.props.auth.user);
 
 defineProps({
     categories:Array

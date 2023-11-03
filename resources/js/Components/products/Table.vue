@@ -1,5 +1,5 @@
 <script setup>
-import { Link , useForm } from '@inertiajs/vue3';
+import { Link , useForm,usePage } from '@inertiajs/vue3';
 import { defineProps } from 'vue';
 import { computed } from 'vue';
 
@@ -8,6 +8,7 @@ defineProps({
     products: Array
 });
 
+const page = usePage();
 const user = computed(() => page.props.auth.user);
 
 const form = useForm({
@@ -38,6 +39,8 @@ const sell = ( id) => {
     sellForm.put(route('product.sell',id))
 
 }
+
+
 </script>
 <template>
     <div class="relative mr-16 overflow-x-auto shadow-md sm:rounded-lg">
@@ -51,7 +54,7 @@ const sell = ( id) => {
               <th scope="col" class="px-3 py-4">Price</th>
               <th scope="col" class="px-3 py-4">serial no</th>
               <th scope="col" class="px-3 py-4">status</th>
-              <th scope="col" class="px-3 py-4">Action</th>
+              <th v-if="user.is_admin || user.is_seller" scope="col" class="px-3 py-4">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -68,12 +71,12 @@ const sell = ( id) => {
                <td class="px-6 py-4">
                 {{ productAvailabilty(product.sold)}}
               </td>
-              <td class="px-6 py-4">
+              <td  class="px-6 py-4">
                 <div class="flex gap-4">
-                  <div class="p-2 font-medium text-white bg-red-400 rounded-md hover:underline">
+                  <div v-if="user.is_admin" class="p-2 font-medium text-white bg-red-400 rounded-md hover:underline">
                     <Link @click="deleteProduct(product.id)" as="button" ><img class="w-4 h-4" src="/icons/trash.png" alt /></Link>
                   </div>
-                  <div class="p-2 font-medium text-white rounded-md hover:underline table-primary">
+                  <div v-if="user.is_admin" class="p-2 font-medium text-white rounded-md hover:underline table-primary">
                     <Link :href="
                       route(
                         'product.edit',
@@ -83,7 +86,7 @@ const sell = ( id) => {
                     <img class="w-4 h-4" src="/icons/file-edit.png" alt />
                     </Link>
                   </div>
-                   <div class="p-2 font-medium text-white bg-blue-500 rounded-md hover:underline">
+                   <div v-if="user.is_admin || user.is_seller" class="p-2 font-medium text-white bg-blue-500 rounded-md hover:underline">
                     <Link @click="sell(product.id)" as="button">
                     <img class="w-4 h-4" src="/icons/selling.png" alt />
                     </Link>

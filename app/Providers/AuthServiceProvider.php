@@ -24,9 +24,14 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //roll to update a product
-        Gate::define('can-delete-product', function (User $user) {
-            return $user->is_admin == 1;
-        });
+    //roll to update a product
+    Gate::define('can-delete-product',function(User $user){
+        return $user->is_admin == 1;
+    });
+
+    Gate::define('can-sell',function(User $user){
+        return $user->is_seller == 1;
+    });
+
     }
 }

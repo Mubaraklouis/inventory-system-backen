@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Middleware;
 use Tightenco\Ziggy\Ziggy;
 
@@ -16,6 +17,8 @@ class HandleInertiaRequests extends Middleware
      * @var string
      */
     protected $rootView = 'app';
+
+
 
     /**
      * Determine the current asset version.
@@ -32,6 +35,7 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+         $authUser = Auth::check();
         return [
             ...parent::share($request),
             'auth' => [
@@ -42,7 +46,10 @@ class HandleInertiaRequests extends Middleware
                 'location' => $request->url(),
             ],
 
-            'products_data'=> Category::all()
+            'products_data'=> Category::all(),
+            'is_admin'=>$authUser==true ? function(){
+                return Auth::user()->is_admin;
+            } : 0
         ];
     }
 }

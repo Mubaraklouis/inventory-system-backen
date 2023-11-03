@@ -2,7 +2,7 @@
 <template>
     <div>
         <adminLayeoutVue>
-            <productCategoryTable :products="products" :category="category"/>
+            <productCategoryTable :is_seller="user.is_seller" :is_admin="user.is_admin" :products="products" :category="category"/>
             <pagePagination :Links="products.links"></pagePagination>
         </adminLayeoutVue>
 
@@ -11,12 +11,14 @@
 
 <script  setup>
 
-import { defineProps } from 'vue';
+import { defineProps,computed } from 'vue';
 import adminLayeoutVue from '@/Layouts/admin/adminLayeout.vue';
 import pagePagination from '../partial/pagePagination.vue';
 import productCategoryTable from "@/Components/category/productCategoryTable.vue"
+import { usePage } from '@inertiajs/vue3';
 
-
+const page = usePage();
+const user = computed(()=>page.props.auth.user);
 
 defineProps({
     category: Object,

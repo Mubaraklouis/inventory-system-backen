@@ -38,7 +38,7 @@ const products = computed(() => page.props.products_data)
                                 </div>
                                 <Link href="/dashboard">Dashboard</Link>
                             </li>
-                            <li class="flex items-center gap-y-6 gap-x-2">
+                            <li v-if="user.is_admin" class="flex items-center gap-y-6 gap-x-2">
                                 <div>
                                     <img class="w-4 h-4" src="/icons/delivery-cart.png" alt="" />
                                 </div>
@@ -57,7 +57,7 @@ const products = computed(() => page.props.products_data)
                                 </div>
                             <Link :href="route('category.index')">categories </Link>
                             </li>
-                               <li class="flex items-center gap-y-6 gap-x-2">
+                               <li v-if="user.is_admin" class="flex items-center gap-y-6 gap-x-2">
                                 <div>
                                     <img class="w-4 h-4" src="/icons/pen-clip.png" alt="" />
                                 </div>
@@ -69,7 +69,7 @@ const products = computed(() => page.props.products_data)
                                 </div>
                              <Link :href="route('users.index')">users </Link>
                             </li>
-                            <li class="flex items-center gap-y-6 gap-x-2">
+                            <li v-if="user.is_admin" class="flex items-center gap-y-6 gap-x-2">
                                 <div>
                                     <img class="w-4 h-4" src="/icons/add-user.png" alt="" />
                                 </div>
@@ -137,7 +137,7 @@ const products = computed(() => page.props.products_data)
                             <Link href="/dashboard">Dashboard</Link>
                             <div class="indicator-bar-dashboard"></div>
                         </li>
-                        <li class="cursor-pointer secondary-text">
+                        <li v-if="user.is_admin" class="cursor-pointer secondary-text">
                             <Link :href="route('product.create')">In products</Link>
                             <div class="indicator-bar"></div>
                         </li>
