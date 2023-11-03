@@ -71,7 +71,7 @@ const products = computed(() => page.props.products_data)
                             </li>
                             <li class="flex items-center gap-y-6 gap-x-2">
                                 <div>
-                                    <img class="w-4 h-4" src="/icons/user.png" alt="" />
+                                    <img class="w-4 h-4" src="/icons/add-user.png" alt="" />
                                 </div>
                              <Link :href="route('users.create')"> Add users </Link>
                             </li>

@@ -6,7 +6,9 @@ use App\Models\Product;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\Category;
+
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate as FacadesGate;
 
 class ProductController extends Controller
 {
@@ -163,6 +165,10 @@ class ProductController extends Controller
      */
     public function destroy(Product $product, $id)
     {
+
+        if (!FacadesGate::allows('can-delete-product', $product)) {
+            abort(403);
+        }
         $product = $product->find($id);
         $product->delete();
     }

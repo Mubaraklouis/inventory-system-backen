@@ -1,27 +1,27 @@
 <template>
     <div>
         <adminLayeout>
-            <form @submit.prevent="submitForm()" class="in-product-form grid grid-cols-1 mb-5" action="">
+            <form @submit.prevent="submitForm()" class="grid grid-cols-1 mb-5 in-product-form" action="">
                 <label class="text-sm font-extrabold" for="Product Name">Product Name</label>
-                <input v-model="form.name" class="text-xs p-1 text-gray-500" type="text" placeholder="product name" />
+                <input v-model="form.name" class="p-1 text-xs text-gray-500" type="text" placeholder="product name" />
                 <label class="text-sm font-extrabold" for="Serial Number">Serial Number</label>
-                <input v-model="form.serial_number" class="text-xs p-1 text-gray-500" type="number"
+                <input v-model="form.serial_number" class="p-1 text-xs text-gray-500" type="number"
                     placeholder="serial number" />
                 <label class="text-sm font-extrabold" for="Serial Number">category</label>
          
 
-                <select v-model="form.category_id" name="category_id" id="countries"   class="text-xs p-1 text-gray-500 rounded-lg bg-blue-100">
+                <select  v-model="form.category_id" name="category_id" id="countries"   class="p-1 text-xs text-gray-500 bg-blue-100 rounded-lg">
             <option :value="category.id" v-for="category in categories" :key="category.id" selected>{{ category.title }}</option>
         </select>
                 <label class="text-sm font-extrabold" for="Quantity">Quantity</label>
-                <input v-model="form.quantity" class="text-xs p-1 text-gray-500" type="number" placeholder="quantity" />
+                <input v-model="form.quantity" class="p-1 text-xs text-gray-500" type="number" placeholder="quantity" />
                 <label class="text-sm font-extrabold" for="Quantity">price</label>
-                <input v-model="form.price" class="text-xs p-1 text-gray-500" type="number" placeholder="price" />
+                <input v-model="form.price" class="p-1 text-xs text-gray-500" type="number" placeholder="price" />
 
                 <label class="text-sm font-extrabold" for="Product Name">Product description</label>
-                <input v-model="form.description" class="text-xs p-1 text-gray-500" type="text" placeholder="description" />
+                <input v-model="form.description" class="p-1 text-xs text-gray-500" type="text" placeholder="description" />
 
-                <button type="submit" class="btn-component text-sm text-bold">
+                <button type="submit" class="text-sm btn-component text-bold">
                     submit
                 </button>
             </form>
