@@ -32,9 +32,9 @@ class usersController extends Controller
         $validated = [
             'name' => $request->name,
             'email' => $request->email,
-            'password' => $request->password,
-            'is_admin' =>$request->is_admin === null ? false :true,
-            'is_seller' =>$request->is_seller === null ?false :true
+            'password' => bcrypt($request->password),
+            'is_admin' =>$request->is_admin,
+            'is_seller' =>$request->is_seller
 
         ];
         $this->authorize('create',$user);
@@ -76,7 +76,9 @@ class usersController extends Controller
         $validated = [
             'name' => $request->name,
             'email' => $request->email,
-            'password' => $request->password
+            'password' => $request->password,
+            'is_admin' => $request->is_admin,
+            'is_seller' =>$request->is_seller
 
         ];
         DB::table('users')->where('id', $id)->update($validated);
