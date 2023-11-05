@@ -28,8 +28,17 @@ class usersController extends Controller
      */
     public function store(Request $request, User $user)
     {
-        $this->authorize(['create'],$user);
-        User::create($request->all());
+
+        $validated = [
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => $request->password,
+            'is_admin' =>$request->is_admin === null ? false :true,
+            'is_seller' =>$request->is_seller === null ?false :true
+
+        ];
+        $this->authorize('create',$user);
+        User::create($validated);
         return redirect()->route('users.index');
     }
 
@@ -63,7 +72,7 @@ class usersController extends Controller
     public function update(Request $request, string $id, User $user)
     {
 
-        $this->authorize(['update'], $user);
+        $this->authorize('update', $user);
         $validated = [
             'name' => $request->name,
             'email' => $request->email,
@@ -79,7 +88,7 @@ class usersController extends Controller
      */
     public function destroy(string $id, User $user)
     {
-        $this->authorize(['delete'], $user);
+        $this->authorize('delete', $user);
         $user = User::find($id);
         $user->delete();
         return redirect()->route('users.index');
