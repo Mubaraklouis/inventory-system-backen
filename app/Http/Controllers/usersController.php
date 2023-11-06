@@ -76,7 +76,7 @@ class usersController extends Controller
         $validated = [
             'name' => $request->name,
             'email' => $request->email,
-            'password' => $request->password,
+            'password' => bcrypt($request->password),
             'is_admin' => $request->is_admin,
             'is_seller' =>$request->is_seller
 

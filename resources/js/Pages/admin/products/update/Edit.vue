@@ -2,6 +2,7 @@
 import adminLayeout from "../../../../Layouts/admin/adminLayeout.vue";
 import { useForm, usePage } from "@inertiajs/vue3";
 import { computed, defineProps } from "vue";
+import InputError from "@/Components/InputError.vue"
 
 const prop = defineProps({
     product: Object,
@@ -36,9 +37,11 @@ const submitForm = () => {
                 class="grid grid-cols-1 mb-5 in-product-form"
                 action=""
             >
+
                 <label class="text-sm font-extrabold" for="Product Name"
                     >Product Name</label
                 >
+                <InputError :message="form.errors.name"/>
                 <input
                     v-model="form.name"
                     class="p-1 text-xs text-gray-500"
@@ -46,7 +49,7 @@ const submitForm = () => {
                     placeholder="product name"
                 />
                 <label class="text-sm font-extrabold" for="Product Name"
-                    >Product Name</label
+                    >category</label
                 >
 
                 <select v-model="form.category_id" name="category_id" id="countries"   class="text-xs p-1 text-gray-500 rounded-lg bg-blue-100">
@@ -55,6 +58,7 @@ const submitForm = () => {
                 <label class="text-sm font-extrabold" for="Serial Number"
                     >Serial Number</label
                 >
+                <InputError :message="form.errors.serial_number"/>
                 <input
                     v-model="form.serial_number"
                     class="p-1 text-xs text-gray-500"
@@ -64,6 +68,7 @@ const submitForm = () => {
                 <label class="text-sm font-extrabold" for="Quantity"
                     >Quantity</label
                 >
+                <InputError :message="form.errors.quantity"/>
                 <input
                     v-model="form.quantity"
                     class="p-1 text-xs text-gray-500"
@@ -73,6 +78,7 @@ const submitForm = () => {
                 <label class="text-sm font-extrabold" for="Quantity"
                     >price</label
                 >
+                <InputError :message="form.errors.price"/>
                 <input
                     v-model="form.price"
                     class="p-1 text-xs text-gray-500"
@@ -82,6 +88,7 @@ const submitForm = () => {
                 <label class="text-sm font-extrabold" for="Product Name"
                     >Product description</label
                 >
+                <InputError :message="form.errors.description"/>
                 <input
                     v-model="form.description"
                     class="p-1 text-xs text-gray-500"

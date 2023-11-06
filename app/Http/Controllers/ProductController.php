@@ -74,22 +74,10 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreProductRequest $request,Product $product)
+    public function store(StoreProductRequest $request, Product $product)
     {
-        $validated = [
-            "name" => $request->name,
-            "user_id" => $request->user_id,
-            "category_id" => $request->category_id,
-            "serial_number" => $request->serial_number,
-            "sold" => $request->sold,
-            "description" => $request->description,
-            "quantity" => $request->price,
-            "quantity" => $request->quantity,
-            "price" => $request->price
-        ];
-
-        $this->authorize('create',$product);
-
+        $validated = $request->validated();
+        $this->authorize('create', $product);
         Product::create($validated);
         return redirect()->route('products.index');
     }
@@ -113,38 +101,29 @@ class ProductController extends Controller
     public function update(UpdateProductRequest $request, Product $product)
     {
 
-
-
-        $validated = [
-            "name" => $request->name,
-            "user_id" => $request->user_id,
-            "category_id" => $request->category_id,
-            "serial_number" => $request->serial_number,
-            "sold" => $request->sold,
-            "description" => $request->description,
-            "quantity" => $request->price,
-            "quantity" => $request->quantity,
-            "price" => $request->price
-        ];
-        $this->authorize('update',$product);
+        //validate the product before saving it in the database
+        $validated = $request->validated();
+        //authorization=> only admin users can update the product
+        $this->authorize('update', $product);
+        //update the product
         DB::table('products')->where('id', $request->id)->update($validated);
-
+        //redirect the user to all the products page
         return redirect()->route('products.index');
     }
 
 
 
-        /**
+    /**
      * Update the specified sell in storage.
      */
-    public function sell(UpdateProductRequest $request, Product $product ,$id)
+    public function sell(UpdateProductRequest $request, Product $product, $id)
     {
 
         $validated = [
-            "sold" =>1,
+            "sold" => 1,
         ];
 
-        $this->authorize('sell',$product);
+        $this->authorize('sell', $product);
 
         DB::table('products')->where('id', $id)->update($validated);
 
@@ -171,7 +150,7 @@ class ProductController extends Controller
     {
 
 
-        $this->authorize('delete',$product);
+        $this->authorize('delete', $product);
         $product = $product->find($id);
         $product->delete();
     }
