@@ -2,19 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\createProductRequest;
 use App\Models\Product;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\Category;
-
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate as FacadesGate;
+
 
 class ProductController extends Controller
 {
 
     /**
      * Display a form for adding new product.
+     * $category : return all the list of the category to allow user add
+     *        -> add category to a product
      */
     public function create()
     {
@@ -32,14 +35,18 @@ class ProductController extends Controller
 
     /**
      * Display a listing of the sold products.
+     * filter() : this is a function that searches for a
+     *    product in the database
      */
-    public function index()
+    public function index(createProductRequest $request)
     {
 
 
-
+        //get all the products with the categories relationship
+        $products = Product::latest()->with(['category'])->filter();
+        //display the default products with searching
         return inertia('admin/products/productsTable', [
-            "products" => Product::latest()->with(['category'])->paginate(4)
+            "products" => $products->paginate(4)
         ]);
     }
 
@@ -76,7 +83,10 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request, Product $product)
     {
+
+        //validate the product before storing it
         $validated = $request->validated();
+        //authorision only admins can add product
         $this->authorize('create', $product);
         Product::create($validated);
         return redirect()->route('products.index');
@@ -110,7 +120,6 @@ class ProductController extends Controller
         //redirect the user to all the products page
         return redirect()->route('products.index');
     }
-
 
 
     /**

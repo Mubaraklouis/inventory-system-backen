@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 class usersController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of all the users to be managed by the admin
      */
     public function index()
     {
@@ -24,11 +24,14 @@ class usersController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created user by the admin.
+     * $this->authorize(): this function authorizes the insertion of the user by admin
      */
     public function store(Request $request, User $user)
     {
 
+
+        //i need to refactor the code into there own request file
         $validated = [
             'name' => $request->name,
             'email' => $request->email,
@@ -37,6 +40,7 @@ class usersController extends Controller
             'is_seller' =>$request->is_seller
 
         ];
+
         $this->authorize('create',$user);
         User::create($validated);
         return redirect()->route('users.index');

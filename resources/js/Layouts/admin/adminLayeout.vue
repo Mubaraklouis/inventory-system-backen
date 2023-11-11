@@ -1,5 +1,5 @@
 <script setup>
-import { Link, usePage } from "@inertiajs/vue3";
+import { Link, usePage ,useForm} from "@inertiajs/vue3";
 import { computed } from "vue";
 import DropdownLink from "@/Components/DropdownLink.vue";
 import Dropdown from '@/Components/Dropdown.vue';
@@ -12,6 +12,15 @@ const page = usePage();
 const user = computed(() => page.props.auth.user);
 //querying all the products
 const products = computed(() => page.props.products_data)
+
+// getting the search results here
+const form = useForm({
+   search:''
+});
+
+const searchProduct =()=>{
+    form.get(route('products.index'))
+}
 
 
 </script>
@@ -181,7 +190,7 @@ const products = computed(() => page.props.products_data)
                             <img class="w-4 h-4" src="/icons/angle-small-down.png" alt="" />
                         </div>
                     </div>
-                    <!-- worming on the category -->
+                    <!-- working on the category -->
 
                     <div class="grid items-center justify-center grid-cols-3 gap-2 pl-4 cursor-pointer calender-input">
                         <!-- Settings Dropdown -->
@@ -216,11 +225,12 @@ const products = computed(() => page.props.products_data)
 
 
                     <!-- {{ products }} -->
+
                     <!-- code for the search button -->
-
-
-                    <input class="grid items-center justify-center grid-cols-3 gap-2 pl-4 text-xs calender-input"
+                  <form @submit.prevent="searchProduct()"  method="GET">
+                    <input v-model="form.search" name="search" class="grid items-center justify-center grid-cols-3 gap-2 pl-4 text-xs calender-input"
                         placeholder="search  CTR+K" />
+                  </form>
                 </div>
 
                 <div class="grid justify-center grid-cols-1 pl-20">
