@@ -36,7 +36,7 @@ class ProductController extends Controller
     /**
      * Display a listing of the sold products.
      * filter() : this is a function that searches for a
-     *    product in the database
+     * product in the database
      */
     public function index(createProductRequest $request)
     {
@@ -68,9 +68,6 @@ class ProductController extends Controller
      */
     public function unsold()
     {
-
-
-
         return inertia('admin/products/productsTable', [
             "products" => Product::latest()->where('sold', '=', 0)->with(['category'])->paginate(4)
         ]);

@@ -5,7 +5,7 @@
           <div class="line-chart-about">
             <h6 class="text-xs font-extrabold">summery</h6>
             <h6 class="text-xs font-extrabold text-gray-500 mt-4">total sale</h6>
-            <h2 class="text-md font-extrabold mt-3">$5,000.5</h2>
+            <h2 class="text-md font-extrabold mt-3">${{ salesInfo.totalSale }}</h2>
             <div>
               <button class="btn-component text-xs">increase by 20%</button>
               <h6 class="text-xs font-extrabold text-gray-500">
@@ -25,7 +25,7 @@
             <h6 class="text-xs font-extrabold">Top sale by employeer</h6>
             <h6 class="text-xs font-bold text-gray-500">view all</h6>
           </div>
-          <h2 class="text-sm font-extrabold mt-1">Mubarak Luiz</h2>
+          <h2 class="text-sm font-extrabold mt-1">{{ user.name }}</h2>
           <canvas id="barCanvas1" class="line-chart-body"> </canvas>
         </div>
         <div class="bar-graph shadow-md">
@@ -42,8 +42,13 @@
   <style></style>
   <script setup>
   import { onMounted } from "vue";
-
+import { defineProps } from "vue";
 import {Graph} from "../../../services/chart"
+
+defineProps({
+    user:Object,
+    salesInfo:Array
+})
 
 
   /*

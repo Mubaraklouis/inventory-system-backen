@@ -18,6 +18,7 @@ const form = useForm({
    search:''
 });
 
+//this function is responsible for search for data in the database
 const searchProduct =()=>{
     form.get(route('products.index'))
 }

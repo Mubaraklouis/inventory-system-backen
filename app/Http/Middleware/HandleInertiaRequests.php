@@ -49,6 +49,7 @@ class HandleInertiaRequests extends Middleware
             'is_admin'=>$authUser==true ? function(){
                 return Auth::user()->is_admin;
             } : 0
+            
         ];
     }
 }

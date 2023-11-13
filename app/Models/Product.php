@@ -36,7 +36,7 @@ class Product extends Model
     }
 
 
-    //creating a filter scope for search a product
+    //creating a filter scope for searching a product
 
     public function scopeFilter($query)
     {

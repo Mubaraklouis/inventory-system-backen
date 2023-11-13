@@ -31,7 +31,13 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return Inertia::render('admin/dashboard/Dashboard');
+    $totalSale =1000;
+    $saleInfo =[
+    'totalSale'=>$totalSale
+ ];
+    return Inertia::render('admin/dashboard/Dashboard',[
+        'salesInfo'=>$saleInfo
+    ]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
