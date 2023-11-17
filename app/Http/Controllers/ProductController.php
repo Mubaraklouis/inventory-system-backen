@@ -1,23 +1,22 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use App\Http\Requests\createProductRequest;
+use App\Http\Requests\sellProductRequest;
 use App\Models\Product;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\Category;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate as FacadesGate;
 
-
 class ProductController extends Controller
 {
-
     /**
      * Display a form for adding new product.
      * $category : return all the list of the category to allow user add
-     *        -> add category to a product
+     *  -> add category to a product
      */
     public function create()
     {
@@ -31,17 +30,14 @@ class ProductController extends Controller
             ]
         );
     }
-
-
     /**
      * Display a listing of the sold products.
      * filter() : this is a function that searches for a
      * product in the database
      */
+
     public function index(createProductRequest $request)
     {
-
-
         //get all the products with the categories relationship
         $products = Product::latest()->with(['category'])->filter();
         //display the default products with searching
@@ -55,16 +51,13 @@ class ProductController extends Controller
      */
     public function sold()
     {
-
-
-
         return inertia('admin/products/productsTable', [
             "products" => Product::latest()->where('sold', '=', 1)->with(['category'])->paginate(4)
         ]);
     }
 
     /**
-     * Display a listing of the sold products.
+     * unsold()->Display a listing of the unsold products.
      */
     public function unsold()
     {
@@ -72,8 +65,6 @@ class ProductController extends Controller
             "products" => Product::latest()->where('sold', '=', 0)->with(['category'])->paginate(4)
         ]);
     }
-
-
 
     /**
      * Store a newly created resource in storage.
@@ -104,6 +95,7 @@ class ProductController extends Controller
 
     /**
      * Update the specified resource in storage.
+     * @throws AuthorizationException
      */
     public function update(UpdateProductRequest $request, Product $product)
     {
@@ -120,9 +112,10 @@ class ProductController extends Controller
 
 
     /**
-     * Update the specified sell in storage.
+     * sell()->sets the sold column true(1).
+     * @throws AuthorizationException
      */
-    public function sell(UpdateProductRequest $request, Product $product, $id)
+    public function sell(sellProductRequest $request, Product $product, $id)
     {
 
         $validated = [
@@ -130,8 +123,16 @@ class ProductController extends Controller
         ];
 
         $this->authorize('sell', $product);
-
         DB::table('products')->where('id', $id)->update($validated);
+        // update the total sale column in the database by incrementing the sale property
+        $user =Auth::user();
+        //get the price columns
+        $price = $product->find($id)->price;
+        $saleInfo=[
+            "total_sale" =>$user->total_sale+=$price
+        ];
+
+        DB::table('users')->where('id', $user->id)->update($saleInfo);
 
         return redirect()->route('products.index');
     }

@@ -18,12 +18,14 @@ class Product extends Model
 
     protected $fillable = [
     'name',
-    'price', 'quantity',
+    'price',
+    'quantity',
     'serial_number',
     'user_id',
     'description',
     'sold',
-    'category_id'];
+    'category_id'
+];
 
     public function users()
     {
@@ -46,5 +48,5 @@ class Product extends Model
             }
         }
 
-        use HasFactory;
+    use HasFactory;
     }

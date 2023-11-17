@@ -10,7 +10,7 @@ defineProps({
 
 const page = usePage();
 const user = computed(() => page.props.auth.user);
-
+//use the inertia function to make a request to the server
 const form = useForm({
     id: null,
 });
@@ -26,7 +26,7 @@ const deleteProduct = (id) => {
     }
 }
 const productAvailabilty = (status) => {
-    if (status == 1) {
+    if (status === 1) {
     return "sold"
     }
     else {
@@ -34,13 +34,11 @@ const productAvailabilty = (status) => {
 }
 }
 
+//a function to make sell request to the server
 const sell = ( id) => {
-    //make a put request with the product id
-    sellForm.put(route('product.sell',id))
+    sellForm.put(route('products.sell',id))
 
 }
-
-
 </script>
 <template>
     <div class="relative mr-16 overflow-x-auto shadow-md sm:rounded-lg">
@@ -102,7 +100,6 @@ const sell = ( id) => {
 .table-secondary {
     background-color: #cecbf7;
 }
-
 .table-primary {
     background-color: #b086f3;
 }

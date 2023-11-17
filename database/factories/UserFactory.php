@@ -23,6 +23,7 @@ class UserFactory extends Factory
             'is_admin'=>false,
             'is_seller'=>false,
             'email_verified_at' => now(),
+            'total_sale'=>0,
             'password' => bcrypt('password'), // password
             'remember_token' => Str::random(10),
         ];

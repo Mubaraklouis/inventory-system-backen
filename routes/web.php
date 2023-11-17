@@ -1,5 +1,4 @@
 <?php
-
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
@@ -31,9 +30,14 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    $totalSale =1000;
+
+
+    //querying the sell column
+    $user = \Illuminate\Support\Facades\Auth::user();
+
+
     $saleInfo =[
-    'totalSale'=>$totalSale
+    'totalSale'=>$user->total_sale
  ];
     return Inertia::render('admin/dashboard/Dashboard',[
         'salesInfo'=>$saleInfo
@@ -57,7 +61,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/store', 'store')->name('product.store');
         Route::get('/edit/{id}', 'editProduct')->name('product.edit');
         Route::put('/update/{id}', 'update')->name('product.update');
-        Route::put('/sell/{id}','sell')->name('product.sell');
+        Route::put('/sell/{id}','sell')->name('products.sell');
         Route::delete('/delete/{id}', 'destroy')->name('product.delete');
 
 
@@ -73,11 +77,9 @@ Route::middleware('auth')->group(function () {
         Route::delete('delete/{id}', 'destroy')->name('category.delete');
         Route::post('store','store')->name('category.store');
 
-
-
     });
 
-      //users route
+      //these are all the routes that belongs to the user
       Route::controller(usersController::class)->prefix('users')->group(function(){
         Route::get('/index','index')->name('users.index');
         Route::delete('/delete/{id}','destroy')->name('users.delete');
