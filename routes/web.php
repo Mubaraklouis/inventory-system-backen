@@ -34,16 +34,14 @@ Route::get('/dashboard', function () {
 
     //querying the sell column
     $user = \Illuminate\Support\Facades\Auth::user();
-    $totalSales = \App\Models\Sale::find(1)->total_sales;
+    //get the latest sale record in the database
+    $totalSales = \Illuminate\Support\Facades\DB::select('SELECT * FROM sales
+    WHERE created_at = (SELECT MAX(created_at) FROM sales);');
+    $all=\App\Models\Sale::all();
 
-
-    $saleInfo =[
-    'totalSale'=>$user->total_sale,
-        'totalSales'=>$totalSales
- ];
     return Inertia::render('admin/dashboard/Dashboard',[
-        'salesInfo'=>$saleInfo,
-        'totalSales'=>$totalSales
+        'totalSales'=>$totalSales,
+        'all' =>$all
     ]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 

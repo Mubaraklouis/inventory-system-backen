@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateProductRequest;
 use App\Models\Category;
 use App\Models\Sale;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -139,8 +140,8 @@ class ProductController extends Controller
             "total_sales"=>$total_price
         ];
 
-        DB::table('sales')->where('id', Sale::find(1)->id)->update($sale_price);
-
+//        DB::table('sales')->where('id', Sale::find(1)->id)->update($sale_price);
+        Sale::create($sale_price);
 
         return redirect()->route('products.index');
     }
