@@ -6,6 +6,8 @@ use App\Models\Product;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\Category;
+use App\Models\Sale;
+use App\Models\User;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -128,11 +130,17 @@ class ProductController extends Controller
         $user =Auth::user();
         //get the price columns
         $price = $product->find($id)->price;
-        $saleInfo=[
-            "total_sale" =>$user->total_sale+=$price
+
+        $total_price = Sale::find(1)->total_sales +$price;
+
+        //update the total sales
+
+        $sale_price = [
+            "total_sales"=>$total_price
         ];
 
-        DB::table('users')->where('id', $user->id)->update($saleInfo);
+        DB::table('sales')->where('id', Sale::find(1)->id)->update($sale_price);
+
 
         return redirect()->route('products.index');
     }

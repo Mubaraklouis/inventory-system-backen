@@ -34,13 +34,16 @@ Route::get('/dashboard', function () {
 
     //querying the sell column
     $user = \Illuminate\Support\Facades\Auth::user();
+    $totalSales = \App\Models\Sale::find(1)->total_sales;
 
 
     $saleInfo =[
-    'totalSale'=>$user->total_sale
+    'totalSale'=>$user->total_sale,
+        'totalSales'=>$totalSales
  ];
     return Inertia::render('admin/dashboard/Dashboard',[
-        'salesInfo'=>$saleInfo
+        'salesInfo'=>$saleInfo,
+        'totalSales'=>$totalSales
     ]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 

@@ -3,8 +3,16 @@
       <div class="line-chart mb-5 shadow-md">
         <div class="grid grid-cols-2">
           <div class="line-chart-about">
-            <h6 class="text-xs font-extrabold">summery</h6>
-            <h6 class="text-xs font-extrabold text-gray-500 mt-4">total sale</h6>
+           <div class="flex justify-between">
+               <h6 class="text-xs font-extrabold">summery</h6>
+             <div class="flex gap-3">
+                 <h6 class="text-xs font-extrabold text-gray-500">Total sales</h6>
+                 <h2 class="text-md font-extrabold mr-3">${{salesInfo.totalSales}}</h2>
+             </div>
+           </div>
+
+                  <h6 class="text-xs font-extrabold text-gray-500 mt-4">total sale by {{user.name}}</h6>
+
             <h2 class="text-md font-extrabold mt-3">${{ salesInfo.totalSale }}</h2>
             <div>
               <button class="btn-component text-xs">increase by 20%</button>
@@ -47,7 +55,7 @@ import {Graph} from "../../../services/chart"
 
 defineProps({
     user:Object,
-    salesInfo:Array
+    salesInfo:Array,
 })
 
 
