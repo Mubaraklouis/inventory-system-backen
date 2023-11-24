@@ -73,7 +73,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/index', 'index')->name('category.index');
         Route::get('/create','create')->name('category.create');
         Route::get('/{id}','show')->name('category.show');
-        Route::get('/edit/{id}', 'editCategory')->name('category.edit');
+        Route::get('`/edit/{id}', 'editCategory')->name('category.edit');
         Route::put('update/{id}', 'update')->name('category.update');
         Route::delete('delete/{id}', 'destroy')->name('category.delete');
         Route::post('store','store')->name('category.store');

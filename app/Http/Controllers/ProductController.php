@@ -7,12 +7,10 @@ use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\Category;
 use App\Models\Sale;
-use App\Models\User;
-use Carbon\Carbon;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Gate as FacadesGate;
+
 
 class ProductController extends Controller
 {
@@ -27,7 +25,7 @@ class ProductController extends Controller
         $categories = Category::all();
 
         return inertia(
-            'admin/products/productForm',
+            'admin/products/productCreate',
             [
                 "categories" => $categories
             ]
@@ -44,7 +42,7 @@ class ProductController extends Controller
         //get all the products with the categories relationship
         $products = Product::latest()->with(['category'])->filter();
         //display the default products with searching
-        return inertia('admin/products/productsTable', [
+        return inertia('admin/products/productIndex', [
             "products" => $products->paginate(4)
         ]);
     }
@@ -54,7 +52,7 @@ class ProductController extends Controller
      */
     public function sold()
     {
-        return inertia('admin/products/productsTable', [
+        return inertia('admin/products/productIndex', [
             "products" => Product::latest()->where('sold', '=', 1)->with(['category'])->paginate(4)
         ]);
     }
@@ -64,7 +62,7 @@ class ProductController extends Controller
      */
     public function unsold()
     {
-        return inertia('admin/products/productsTable', [
+        return inertia('admin/products/productIndex', [
             "products" => Product::latest()->where('sold', '=', 0)->with(['category'])->paginate(4)
         ]);
     }
@@ -90,7 +88,7 @@ class ProductController extends Controller
     {
         $product = $product->find($id);
         $categories = Category::all();
-        return inertia('admin/products/Product', [
+        return inertia('admin/products/productShow', [
             "product" => $product,
             "categories" => $categories
         ]);
@@ -144,7 +142,6 @@ class ProductController extends Controller
             "total_sales"=>$total_price
         ];
 
-//        DB::table('sales')->where('id', Sale::find(1)->id)->update($sale_price);
         Sale::create($sale_price);
 
         return redirect()->route('products.index');
@@ -157,7 +154,7 @@ class ProductController extends Controller
     {
         $product = $product->find($id);
         $categories = Category::all();
-        return inertia('admin/products/update/Edit', [
+        return inertia('admin/products/productEdit', [
             "product" => $product,
             "categories" => $categories
         ]);

@@ -1,5 +1,5 @@
 <script setup>
-import adminLayeout from "../../../../Layouts/admin/adminLayeout.vue";
+import adminLayeout from "@/Layouts/admin/adminLayeout.vue";
 import { useForm, usePage } from "@inertiajs/vue3";
 import { computed, defineProps } from "vue";
 import InputError from "@/Components/InputError.vue"
@@ -51,7 +51,6 @@ const submitForm = () => {
                 <label class="text-sm font-extrabold" for="Product Name"
                     >category</label
                 >
-
                 <select v-model="form.category_id" name="category_id" id="countries"   class="text-xs p-1 text-gray-500 rounded-lg bg-blue-100">
             <option :value="category.id" v-for="category in categories" :key="category.id"> {{ category.title }}</option>
         </select>
