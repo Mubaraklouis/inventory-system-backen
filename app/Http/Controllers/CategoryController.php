@@ -17,7 +17,7 @@ class CategoryController extends Controller
     {
         $categories = Category::all();
         return inertia(
-            'admin/category/categoryTable',
+            'admin/category/categoryIndex',
             [
                 "categories" => $categories
             ]
@@ -30,7 +30,7 @@ class CategoryController extends Controller
     public function create(){
 
         return inertia(
-            'admin/category/categoryForm',
+            'admin/category/categoryCreate',
 
         );
     }
@@ -53,7 +53,7 @@ class CategoryController extends Controller
         $products = Product::where('category_id','=',$id)->paginate(4);
         $category=$category->find($id);
         return inertia(
-            'admin/category/productsTable',
+            'admin/category/categoryProductsTable',
             [
                 "products" => $products,
                 "category"=>$category
@@ -78,7 +78,7 @@ class CategoryController extends Controller
     {
      $category = $category->find($id);
      $this->authorize('update',$category);
-     return inertia('admin/category/updateCategoryForm',[
+     return inertia('admin/category/categoryEdit',[
         "category"=>$category
      ]);
     }
