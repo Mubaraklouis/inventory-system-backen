@@ -5,7 +5,7 @@
           <div class="line-chart-about">
            <div class="flex justify-between">
                <h6 class="text-xs font-extrabold">summery</h6>
-             <div class="flex gap-3">
+             <div class="flex gap-3">c
                  <h6 class="text-xs font-extrabold text-gray-500">Total sales</h6>
                  <h2 class="text-md font-extrabold mr-3">${{ salesInfo[0].total_sales}}</h2>
              </div>
@@ -65,8 +65,11 @@ const props =defineProps({
   /*
    * Chart : this is the class that allows us to use charts in the website
    * chartBluePrint: Is a function used to get a chart type and it properties
-   *
+   * date :: get the date of the product selling
+   * data :: get the data for the selling of the product from the backend
    **/
+
+
 
   const Chart = new Graph();
 

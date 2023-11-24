@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->boolean('is_admin');
             $table->boolean('is_seller');
-            $table->integer('total_sale');
+            $table->integer('total_sale')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

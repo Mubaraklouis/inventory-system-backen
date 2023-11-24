@@ -4,7 +4,6 @@
 import { Head, Link, useForm } from '@inertiajs/vue3';
 import adminLayeout from '@/Layouts/admin/adminLayeout.vue'
 import GuestLayout from '@/Layouts/GuestLayout.vue'
-
 const form = useForm({
     name: '',
     email: '',
@@ -22,8 +21,6 @@ const submit = () => {
 </script>
 
 <template>
-
-
       <adminLayeout>
         <h1 class="mt-4 mb-4 font-sans font-extrabold uppercase text-md">Create a user</h1>
         <form @submit.prevent="submit()" class="grid grid-cols-1 mb-5 in-product-form" action="">

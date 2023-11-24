@@ -131,8 +131,12 @@ class ProductController extends Controller
         $user =Auth::user();
         //get the price columns
         $price = $product->find($id)->price;
+        //get the last price
+        $last_sold =DB::select('SELECT * FROM sales
+        WHERE created_at = (SELECT MAX(created_at) FROM sales);');
 
-        $total_price = Sale::find(1)->total_sales +$price;
+        //increment the price
+        $total_price = $last_sold[0]->total_sales +$price;
 
         //update the total sales
 

@@ -1,7 +1,18 @@
 <script setup>
 import { Link , useForm,usePage } from '@inertiajs/vue3';
+
 import { defineProps } from 'vue';
-import { computed } from 'vue';
+import { computed ,ref } from 'vue';
+import {useAlert} from "@/composable/alerts.js";
+
+//creating an alert instance
+let title = "Confirm deleting"
+let text ="Are you sure you want to delete"
+let icon = "error";
+let confirmDelete = ref(null)
+
+
+
 
 defineProps({
     category: Object,
@@ -21,7 +32,11 @@ const sellForm = useForm({
 });
 
 const deleteProduct = (id) => {
-    if (confirm("are sure you want to delete the product")) {
+    //show an alert before deleting the product
+   const con = useAlert(title, text, icon)
+    con.Alert();
+   alert(con.isConfirmed)
+    if (con.isConfirmed) {
         form.delete(route('product.delete', id))
     }
 }
