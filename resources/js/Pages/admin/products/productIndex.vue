@@ -7,11 +7,14 @@ import {ref} from "vue";
 
 let show = ref(false)
 
+//this function allows the model to be shown
 function  showModel()
 {
  show.value =true;
 }
-
+function  disableModel() {
+  show.value = false;
+}
 const prop=defineProps({
   products: Object,
 });
@@ -21,10 +24,8 @@ const prop=defineProps({
 <template>
   <div >
     <adminLayeout @add="showModel()">
-<Table :products="products"/>
-
-        <productCart :show="show"/>
-
+    <Table :products="products"/>
+        <productCart :show="show" @close="disableModel"/>
       <PagePagination :Links="products.links" />
     </adminLayeout>
   </div>
