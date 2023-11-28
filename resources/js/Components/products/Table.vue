@@ -4,13 +4,12 @@ import { Link , useForm,usePage } from '@inertiajs/vue3';
 import { defineProps } from 'vue';
 import { computed ,ref } from 'vue';
 import {useAlert} from "@/composable/alerts.js";
-
 //creating an alert instance
 let title = "Confirm deleting"
 let text ="Are you sure you want to delete"
 let icon = "error";
 let confirmDelete = ref(null)
-
+let cartProducts = ref([])
 
 
 
@@ -31,13 +30,17 @@ const sellForm = useForm({
     id: null,
 });
 
+const cartForm =useForm({
+    id:null
+})
+
 const deleteProduct = (id) => {
     //show an alert before deleting the product
    const con = useAlert(title, text, icon)
     con.Alert();
    alert(con.isConfirmed)
     if (con.isConfirmed) {
-        form.delete(route('product.delete', id))
+        form.delete(route('product.delete', {product_id:id}))
     }
 }
 const productAvailabilty = (status) => {
@@ -52,8 +55,13 @@ const productAvailabilty = (status) => {
 //a function to make sell request to the server
 const sell = ( id) => {
     sellForm.put(route('products.sell',id))
-
 }
+
+//add to the cart function
+const addToCart=(id)=>{
+cartForm.put(route('products.addtocart',id));
+}
+
 </script>
 <template>
     <div class="relative mr-16 overflow-x-auto shadow-md sm:rounded-lg">
@@ -100,7 +108,7 @@ const sell = ( id) => {
                     </Link>
                   </div>
                    <div v-if="user.is_admin || user.is_seller" class="p-2 font-medium text-white bg-blue-500 rounded-md hover:underline">
-                    <Link @click="sell(product.id)" as="button">
+                    <Link @click="addToCart(product.id)" as="button">
                     <img class="w-4 h-4" src="/icons/selling.png" alt />
                     </Link>
                   </div>

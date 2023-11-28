@@ -1,5 +1,6 @@
 <?php
 namespace App\Http\Controllers;
+use App\Http\Requests\addTocartRequest;
 use App\Http\Requests\createProductRequest;
 use App\Http\Requests\sellProductRequest;
 use App\Models\Product;
@@ -146,6 +147,21 @@ class ProductController extends Controller
 
         return redirect()->route('products.index');
     }
+
+    /**
+     * update the the cart column in the database to be true.
+     */
+    public function addToCart(addTocartRequest $request,Product $product,$id)
+    {
+        $validated = [
+            "added_cart" => 1,
+        ];
+        DB::table('products')->where('id', $id)->update($validated);
+
+
+       //show alert message here latter
+    }
+
 
     /**
      * Edits the specified product in storage to be updated.

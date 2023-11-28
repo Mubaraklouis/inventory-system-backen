@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('category_id');
             $table->boolean('sold');
+            $table->boolean('added_cart');
             $table->string('name');
             $table->integer('price');
             $table->integer('serial_number');

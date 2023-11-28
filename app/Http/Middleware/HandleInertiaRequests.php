@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Middleware;
@@ -46,10 +47,11 @@ class HandleInertiaRequests extends Middleware
             ],
 
             'products_data'=> Category::all(),
+            'allProducts' =>Product::all(),
             'is_admin'=>$authUser==true ? function(){
                 return Auth::user()->is_admin;
             } : 0
-            
+
         ];
     }
 }

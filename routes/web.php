@@ -64,7 +64,7 @@ Route::middleware('auth')->group(function () {
         Route::put('/update/{id}', 'update')->name('product.update');
         Route::put('/sell/{id}','sell')->name('products.sell');
         Route::delete('/delete/{id}', 'destroy')->name('product.delete');
-
+        Route::put('add-to-cart/{id}','addToCart')->name('products.addtocart');
 
     });
 

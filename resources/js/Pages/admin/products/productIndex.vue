@@ -4,8 +4,12 @@ import PagePagination from "../partial/pagePagination.vue";
 import Table from "@/Components/products/Table.vue";
 import productCart from "./productCart.vue"
 import {ref} from "vue";
+import {usePage} from "@inertiajs/vue3";
 
-let show = ref(false)
+
+
+let show = ref(false);
+let cartProducts = ref([]);
 
 //this function allows the model to be shown
 function  showModel()
@@ -19,13 +23,18 @@ const prop=defineProps({
   products: Object,
 });
 
+const page = usePage()
+const allProducts = page.props.allProducts;
+
+//add to the cart function
+
 </script>
 
 <template>
   <div >
     <adminLayeout @add="showModel()">
     <Table :products="products"/>
-        <productCart :show="show" @close="disableModel"/>
+        <productCart :show="show" @close="disableModel" :products="allProducts"/>
       <PagePagination :Links="products.links" />
     </adminLayeout>
   </div>
