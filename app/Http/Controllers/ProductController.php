@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 use App\Http\Requests\addTocartRequest;
 use App\Http\Requests\createProductRequest;
+use App\Http\Requests\removeCartRequest;
 use App\Http\Requests\sellProductRequest;
 use App\Models\Product;
 use App\Http\Requests\StoreProductRequest;
@@ -42,9 +43,11 @@ class ProductController extends Controller
     {
         //get all the products with the categories relationship
         $products = Product::latest()->with(['category'])->filter();
+        $allProducts = Product::all();
         //display the default products with searching
         return inertia('admin/products/productIndex', [
-            "products" => $products->paginate(4)
+            "products" => $products->paginate(4),
+            "allProducts"=>$allProducts
         ]);
     }
 
@@ -117,33 +120,39 @@ class ProductController extends Controller
      * sell()->sets the sold column true(1).
      * @throws AuthorizationException
      */
-    public function sell(sellProductRequest $request, Product $product, $id)
+    public function sell(sellProductRequest $request, Product $product)
     {
 
-        $validated = [
-            "sold" => 1,
-        ];
+//        $validated = [
+//            "sold" => 1,
+//        ];
 
         $this->authorize('sell', $product);
-        DB::table('products')->where('id', $id)->update($validated);
+//        DB::table('products')->where('id', $id)->update($validated);
         // update the total sale column in the database by incrementing the sale property
         $user =Auth::user();
         //get the price columns
-        $price = $product->find($id)->price;
+//        $price = $product->find($id)->price;
         //get the last price
         $last_sold =DB::select('SELECT * FROM sales
         WHERE created_at = (SELECT MAX(created_at) FROM sales);');
 
         //increment the price
-        $total_price = $last_sold[0]->total_sales +$price;
+//        $total_price = $last_sold[0]->total_sales +$price;
 
         //update the total sales
 
-        $sale_price = [
-            "total_sales"=>$total_price
-        ];
+//        $sale_price = [
+//            "total_sales"=>$total_price
+//        ];
 
-        Sale::create($sale_price);
+        //coming to update the algorithm
+
+dd($request->all());
+//        Sale::create($(sale_price);
+
+
+
 
         return redirect()->route('products.index');
     }
@@ -158,10 +167,20 @@ class ProductController extends Controller
         ];
         DB::table('products')->where('id', $id)->update($validated);
 
-
        //show alert message here latter
     }
+    /**
+     * update the the cart column in the database to be true.
+     */
+    public function removeCart(removeCartRequest $request,Product $product,$id)
+    {
+        $validated = [
+            "added_cart" => 0,
+        ];
+        DB::table('products')->where('id', $id)->update($validated);
 
+        //show alert message here latter
+    }
 
     /**
      * Edits the specified product in storage to be updated.

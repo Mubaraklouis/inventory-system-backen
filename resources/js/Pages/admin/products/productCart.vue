@@ -1,30 +1,44 @@
 
-
 <script setup>
-import {Link} from "@inertiajs/vue3";
 import ProductCartItem from "@/Pages/admin/products/productCartItem.vue";
 import {computed} from "vue";
-
+import { useForm } from '@inertiajs/vue3'
 const props =defineProps({
     show:Boolean,
     products:Array
 
 })
 
+/*
+* cartProducts: gets only the products that are added to cart
+* prices :get the prices of the products added to the cart
+* totalPrice() : a func that calculates the total price of the cartProducts
+ */
+
 const cartProducts = props.products.filter((product)=>product.added_cart === 1)
 const prices = cartProducts.map((product)=>product.price)
 
+const soldProducts = props.products.filter((product)=>product.sold === 1);
 
 const totalPrice = computed(()=>{
     let price =0;
     for(let i =0; i<prices.length; i++){
         price+=prices[i]
     }
-
     return price;
 
 })
 
+//send all the cart products to the server
+const sellForm = useForm({
+    soldProducts
+});
+
+function  sell()
+    {
+        //send a post request to the server with the sold products
+        sellForm.post(route('products.sell'))
+    }
 
 </script>
 
@@ -50,7 +64,7 @@ leave-to-class="opacity-0 scale-125"
 
               <div class="flex justify-between border-t-2 mt-4 pt-4">
                 <div class="flex gap-x-1.5">
-                    <button class="bg-blue-700 text-white rounded-md p-1 ml-5 font-extrabold text-xs p-2">Purcase</button>
+                    <button @click="sell()" class="bg-blue-700 text-white rounded-md p-1 ml-5 font-extrabold text-xs p-2">Purcase</button>
                     <button class="bg-black text-white rounded-md p-1 ml-5 font-extrabold text-xs ">Print Invoice</button>
                 </div>
 

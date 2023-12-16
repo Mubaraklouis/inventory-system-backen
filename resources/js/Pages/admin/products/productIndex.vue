@@ -21,10 +21,11 @@ function  disableModel() {
 }
 const prop=defineProps({
   products: Object,
+    allProducts:Array
 });
 
-const page = usePage()
-const allProducts = page.props.allProducts;
+
+
 
 //add to the cart function
 

@@ -108,9 +108,9 @@ cartForm.put(route('products.addtocart',id));
                     </Link>
                   </div>
                    <div v-if="user.is_admin || user.is_seller" class="p-2 font-medium text-white bg-blue-500 rounded-md hover:underline">
-                    <Link @click="addToCart(product.id)" as="button">
+                    <a  @click="addToCart(product.id)" >
                     <img class="w-4 h-4" src="/icons/selling.png" alt />
-                    </Link>
+                    </a>
                   </div>
                 </div>
               </td>

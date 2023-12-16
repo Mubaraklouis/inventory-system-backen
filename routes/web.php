@@ -62,9 +62,10 @@ Route::middleware('auth')->group(function () {
         Route::post('/store', 'store')->name('product.store');
         Route::get('/edit/{id}', 'editProduct')->name('product.edit');
         Route::put('/update/{id}', 'update')->name('product.update');
-        Route::put('/sell/{id}','sell')->name('products.sell');
+        Route::post('/sell','sell')->name('products.sell');
         Route::delete('/delete/{id}', 'destroy')->name('product.delete');
         Route::put('add-to-cart/{id}','addToCart')->name('products.addtocart');
+        Route::put('remove-from-cart/{id}','removeCart')->name('products.removeCart');
 
     });
 
@@ -88,6 +89,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/store','store')->name('user.store');
         Route::put('/update/{id}','update')->name('user.update');
         Route::get('edit/{id}','editUser')->name('user.edit');
+
   });
 });
 
