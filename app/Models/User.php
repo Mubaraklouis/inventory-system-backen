@@ -34,7 +34,8 @@ class User extends Authenticatable
         'email',
         'password',
         'is_admin',
-        'is_seller'
+        'is_seller',
+        'total_sale'
     ];
 
     /**

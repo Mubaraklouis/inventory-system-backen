@@ -6,7 +6,8 @@ import chart from "@/Pages/admin/dashboard/charts.vue"
 import { defineProps } from 'vue';
 
  defineProps({
-  salesInfo:Array
+     totalSales:Array,
+     all:Array
 })
 const page = usePage()
 const user = page.props.auth.user;
@@ -15,8 +16,9 @@ const user = page.props.auth.user;
 <template>
     <Head title="Dashboard" />
     <adminLayeout>
-<chart :salesInfo="salesInfo" :user="user"/>
-    </adminLayeout>
 
+<chart :salesInfo="totalSales" :user="user" :all="all" />
+
+    </adminLayeout>
 
 </template>

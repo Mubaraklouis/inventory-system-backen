@@ -5,6 +5,7 @@ import DropdownLink from "@/Components/DropdownLink.vue";
 import Dropdown from '@/Components/Dropdown.vue';
 
 
+
 //this is the inertia function that allows the access of shared data
 const page = usePage();
 
@@ -23,6 +24,16 @@ const searchProduct =()=>{
     form.get(route('products.index'))
 }
 
+//when the cart button is click i want to send a custom event
+// function sendEvent(){
+//   defineEmits({
+//     add,
+//     data:true
+//
+//   })
+
+
+// }
 
 </script>
 
@@ -47,6 +58,13 @@ const searchProduct =()=>{
                                     <img class="w-4 h-4" src="/icons/home.png" alt="" />
                                 </div>
                                 <Link href="/dashboard">Dashboard</Link>
+                            </li>
+
+                            <li class="flex items-center gap-y-6 gap-x-2">
+                                <div>
+                                    <img class="w-4 h-4" src="/icons/shopping-cart-add (1).png" alt="" />
+                                </div>
+                                <button  @click="$emit('add')" >Cart</button>
                             </li>
                             <li v-if="user.is_admin" class="flex items-center gap-y-6 gap-x-2">
                                 <div>

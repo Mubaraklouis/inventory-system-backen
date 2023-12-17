@@ -1,23 +1,25 @@
 <?php
-
 namespace App\Http\Controllers;
-
+use App\Http\Requests\addTocartRequest;
 use App\Http\Requests\createProductRequest;
+use App\Http\Requests\removeCartRequest;
+use App\Http\Requests\sellProductRequest;
 use App\Models\Product;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\Category;
+use App\Models\Sale;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Gate as FacadesGate;
 
 
 class ProductController extends Controller
 {
-
     /**
      * Display a form for adding new product.
      * $category : return all the list of the category to allow user add
-     *        -> add category to a product
+     *  -> add category to a product
      */
     public function create()
     {
@@ -25,28 +27,27 @@ class ProductController extends Controller
         $categories = Category::all();
 
         return inertia(
-            'admin/products/productForm',
+            'admin/products/productCreate',
             [
                 "categories" => $categories
             ]
         );
     }
-
-
     /**
      * Display a listing of the sold products.
      * filter() : this is a function that searches for a
      * product in the database
      */
+
     public function index(createProductRequest $request)
     {
-
-
         //get all the products with the categories relationship
         $products = Product::latest()->with(['category'])->filter();
+        $allProducts = Product::all();
         //display the default products with searching
-        return inertia('admin/products/productsTable', [
-            "products" => $products->paginate(4)
+        return inertia('admin/products/productIndex', [
+            "products" => $products->paginate(4),
+            "allProducts"=>$allProducts
         ]);
     }
 
@@ -55,25 +56,20 @@ class ProductController extends Controller
      */
     public function sold()
     {
-
-
-
-        return inertia('admin/products/productsTable', [
+        return inertia('admin/products/productIndex', [
             "products" => Product::latest()->where('sold', '=', 1)->with(['category'])->paginate(4)
         ]);
     }
 
     /**
-     * Display a listing of the sold products.
+     * unsold()->Display a listing of the unsold products.
      */
     public function unsold()
     {
-        return inertia('admin/products/productsTable', [
+        return inertia('admin/products/productIndex', [
             "products" => Product::latest()->where('sold', '=', 0)->with(['category'])->paginate(4)
         ]);
     }
-
-
 
     /**
      * Store a newly created resource in storage.
@@ -96,7 +92,7 @@ class ProductController extends Controller
     {
         $product = $product->find($id);
         $categories = Category::all();
-        return inertia('admin/products/Product', [
+        return inertia('admin/products/productShow', [
             "product" => $product,
             "categories" => $categories
         ]);
@@ -104,6 +100,7 @@ class ProductController extends Controller
 
     /**
      * Update the specified resource in storage.
+     * @throws AuthorizationException
      */
     public function update(UpdateProductRequest $request, Product $product)
     {
@@ -120,20 +117,63 @@ class ProductController extends Controller
 
 
     /**
-     * Update the specified sell in storage.
+     * sell()->sets the sold column true(1).
+     * @throws AuthorizationException
      */
-    public function sell(UpdateProductRequest $request, Product $product, $id)
+    public function sell(sellProductRequest $request, Product $product)
     {
 
-        $validated = [
-            "sold" => 1,
-        ];
 
         $this->authorize('sell', $product);
 
+        $user =Auth::user();
+
+        //get the last price
+        $last_sold = DB::select('SELECT * FROM sales
+        WHERE created_at = (SELECT MAX(created_at) FROM sales);');
+
+        //increment the price
+       $total_price = $last_sold[0]->total_sales +$request['totalPrice'];
+
+
+        //update the total sales
+
+       $sale_price = [
+           "total_sales"=>$total_price
+       ];
+
+       Sale::create($sale_price);
+
+
+
+
+
+        return redirect()->route('dashboard');
+    }
+
+    /**
+     * update the the cart column in the database to be true.
+     */
+    public function addToCart(addTocartRequest $request,Product $product,$id)
+    {
+        $validated = [
+            "added_cart" => 1,
+        ];
         DB::table('products')->where('id', $id)->update($validated);
 
-        return redirect()->route('products.index');
+       //show alert message here latter
+    }
+    /**
+     * update the the cart column in the database to be true.
+     */
+    public function removeCart(removeCartRequest $request,Product $product,$id)
+    {
+        $validated = [
+            "added_cart" => 0,
+        ];
+        DB::table('products')->where('id', $id)->update($validated);
+
+        //show alert message here latter
     }
 
     /**
@@ -143,7 +183,7 @@ class ProductController extends Controller
     {
         $product = $product->find($id);
         $categories = Category::all();
-        return inertia('admin/products/update/Edit', [
+        return inertia('admin/products/productEdit', [
             "product" => $product,
             "categories" => $categories
         ]);

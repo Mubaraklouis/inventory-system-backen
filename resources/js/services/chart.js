@@ -6,14 +6,14 @@ import Chart from 'chart.js/auto';
  *
  **/
  export class Graph{
-     chartBluePrint(ctx,graphType,colors){
+     chartBluePrint(ctx,graphType,colors,data,labels){
         new Chart(ctx, {
             type: graphType,
             data: {
-              labels: ['Jan', 'Feb', 'May', 'June', 'July', 'Ague'],
+              labels: labels,
               datasets: [{
                 label: 'total sale',
-                data: [60, 200, 100, 300, 10, 90],
+                data: data,
                 borderWidth: 1,
                 borderColor: "#6200FF",
                 backgroundColor:colors

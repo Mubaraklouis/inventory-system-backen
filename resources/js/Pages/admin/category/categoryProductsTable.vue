@@ -17,6 +17,13 @@ import pagePagination from '../partial/pagePagination.vue';
 import productCategoryTable from "@/Components/category/productCategoryTable.vue"
 import { usePage } from '@inertiajs/vue3';
 
+
+//implement the shopping cart
+
+const addProduct=()=>{
+    
+}
+
 const page = usePage();
 const user = computed(()=>page.props.auth.user);
 

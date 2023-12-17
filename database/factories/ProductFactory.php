@@ -19,6 +19,7 @@ class ProductFactory extends Factory
         return [
          'user_id'=>1,
          'sold'=>true,
+            'added_cart'=>false,
          'category_id'=>2,
          'name'=>fake()->name(),
          'price'=>fake()->numberBetween(2,10),

@@ -3,13 +3,20 @@
       <div class="line-chart mb-5 shadow-md">
         <div class="grid grid-cols-2">
           <div class="line-chart-about">
-            <h6 class="text-xs font-extrabold">summery</h6>
-            <h6 class="text-xs font-extrabold text-gray-500 mt-4">total sale</h6>
-            <h2 class="text-md font-extrabold mt-3">${{ salesInfo.totalSale }}</h2>
+           <div class="flex justify-between">
+               <h6 class="text-xs font-extrabold">summery</h6>
+             <div class="flex gap-3">
+                 <h6 class="text-xs font-extrabold text-gray-500">Total sales</h6>
+                 <h2 class="text-md font-extrabold mr-3">${{ salesInfo[0].total_sales}}</h2>
+             </div>
+           </div>
+                  <h6 class="text-xs font-extrabold text-gray-500 mt-4">total sale by {{user.name}}</h6>
+
+            <h2 class="text-md font-extrabold mt-3">${{ salesInfo[0].total_sales }}</h2>
             <div>
               <button class="btn-component text-xs">increase by 20%</button>
               <h6 class="text-xs font-extrabold text-gray-500">
-                since 9/10/2023
+                since {{ moment(salesInfo[0].created_at).format('LL') }}
               </h6>
             </div>
           </div>
@@ -43,32 +50,45 @@
   <script setup>
   import { onMounted } from "vue";
 import { defineProps } from "vue";
+import moment from  "moment"
 import {Graph} from "../../../services/chart"
 
-defineProps({
+
+const props =defineProps({
     user:Object,
-    salesInfo:Array
+    salesInfo:Array,
+    all:Array
+
 })
-
-
   /*
    * Chart : this is the class that allows us to use charts in the website
    * chartBluePrint: Is a function used to get a chart type and it properties
-   *
+   * date :: get the date of the product selling
+   * data :: get the data for the selling of the product from the backend
    **/
 
   const Chart = new Graph();
 
+  const data = props.all.map((data)=>data.total_sales);
+  const date = props.all.map((date)=>date.created_at);
+
+
+//remove all the duplicated months names
+const doplicatedLabels = new Set(date.map((rowDate)=> moment(rowDate).format('MMMM')));
+
+const labels = [...doplicatedLabels];
+
+
   onMounted(() => {
     //plot a line chart
     const lineCtx = document.getElementById("lineCanvas");
-    Chart.chartBluePrint(lineCtx, "line", "#6200FF");
+    Chart.chartBluePrint(lineCtx, "line", "#6200FF",data,labels);
     //plotting a bar chart
     const barCtx1 = document.getElementById("barCanvas1");
-    Chart.chartBluePrint(barCtx1, "bar", ["#6200FF","#B086F3"]);
+    Chart.chartBluePrint(barCtx1, "bar", ["#6200FF","#B086F3"],data,labels);
     //ploting the second bar chart
     const barCtx =document.getElementById('barCanvas')
-    Chart.chartBluePrint(barCtx, "bar", ["#118E25","#B086F3"]);
+    Chart.chartBluePrint(barCtx, "bar", ["#118E25","#B086F3"],data,labels);
 
   });
   </script>

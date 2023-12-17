@@ -1,5 +1,4 @@
 <?php
-
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
@@ -31,12 +30,18 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    $totalSale =1000;
-    $saleInfo =[
-    'totalSale'=>$totalSale
- ];
+
+
+    //querying the sell column
+    $user = \Illuminate\Support\Facades\Auth::user();
+    //get the latest sale record in the database
+    $totalSales = \Illuminate\Support\Facades\DB::select('SELECT * FROM sales
+    WHERE created_at = (SELECT MAX(created_at) FROM sales);');
+    $all=\App\Models\Sale::all();
+
     return Inertia::render('admin/dashboard/Dashboard',[
-        'salesInfo'=>$saleInfo
+        'totalSales'=>$totalSales,
+        'all' =>$all
     ]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
@@ -57,9 +62,10 @@ Route::middleware('auth')->group(function () {
         Route::post('/store', 'store')->name('product.store');
         Route::get('/edit/{id}', 'editProduct')->name('product.edit');
         Route::put('/update/{id}', 'update')->name('product.update');
-        Route::put('/sell/{id}','sell')->name('product.sell');
+        Route::post('/sell','sell')->name('products.sell');
         Route::delete('/delete/{id}', 'destroy')->name('product.delete');
-
+        Route::put('add-to-cart/{id}','addToCart')->name('products.addtocart');
+        Route::put('remove-from-cart/{id}','removeCart')->name('products.removeCart');
 
     });
 
@@ -68,16 +74,14 @@ Route::middleware('auth')->group(function () {
         Route::get('/index', 'index')->name('category.index');
         Route::get('/create','create')->name('category.create');
         Route::get('/{id}','show')->name('category.show');
-        Route::get('/edit/{id}', 'editCategory')->name('category.edit');
+        Route::get('`/edit/{id}', 'editCategory')->name('category.edit');
         Route::put('update/{id}', 'update')->name('category.update');
         Route::delete('delete/{id}', 'destroy')->name('category.delete');
         Route::post('store','store')->name('category.store');
 
-
-
     });
 
-      //users route
+      //these are all the routes that belongs to the user
       Route::controller(usersController::class)->prefix('users')->group(function(){
         Route::get('/index','index')->name('users.index');
         Route::delete('/delete/{id}','destroy')->name('users.delete');
@@ -85,6 +89,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/store','store')->name('user.store');
         Route::put('/update/{id}','update')->name('user.update');
         Route::get('edit/{id}','editUser')->name('user.edit');
+
   });
 });
 

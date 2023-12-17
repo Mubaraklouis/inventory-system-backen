@@ -67,7 +67,8 @@ class DatabaseSeeder extends Seeder
             [
                 ProductSeeder::class,
                 OutproductSeeder::class,
-                CategorySeeder::class
+                CategorySeeder::class,
+                saleSeeder::class
             ]
             );
 

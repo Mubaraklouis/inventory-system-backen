@@ -1,7 +1,17 @@
 <script setup>
 import { Link , useForm,usePage } from '@inertiajs/vue3';
+
 import { defineProps } from 'vue';
-import { computed } from 'vue';
+import { computed ,ref } from 'vue';
+import {useAlert} from "@/composable/alerts.js";
+//creating an alert instance
+let title = "Confirm deleting"
+let text ="Are you sure you want to delete"
+let icon = "error";
+let confirmDelete = ref(null)
+let cartProducts = ref([])
+
+
 
 defineProps({
     category: Object,
@@ -10,7 +20,7 @@ defineProps({
 
 const page = usePage();
 const user = computed(() => page.props.auth.user);
-
+//use the inertia function to make a request to the server
 const form = useForm({
     id: null,
 });
@@ -20,13 +30,21 @@ const sellForm = useForm({
     id: null,
 });
 
+const cartForm =useForm({
+    id:null
+})
+
 const deleteProduct = (id) => {
-    if (confirm("are sure you want to delete the product")) {
-        form.delete(route('product.delete', id))
+    //show an alert before deleting the product
+   const con = useAlert(title, text, icon)
+    con.Alert();
+   alert(con.isConfirmed)
+    if (con.isConfirmed) {
+        form.delete(route('product.delete', {product_id:id}))
     }
 }
 const productAvailabilty = (status) => {
-    if (status == 1) {
+    if (status === 1) {
     return "sold"
     }
     else {
@@ -34,12 +52,15 @@ const productAvailabilty = (status) => {
 }
 }
 
+//a function to make sell request to the server
 const sell = ( id) => {
-    //make a put request with the product id
-    sellForm.put(route('product.sell',id))
-
+    sellForm.put(route('products.sell',id))
 }
 
+//add to the cart function
+const addToCart=(id)=>{
+cartForm.put(route('products.addtocart',id));
+}
 
 </script>
 <template>
@@ -87,9 +108,9 @@ const sell = ( id) => {
                     </Link>
                   </div>
                    <div v-if="user.is_admin || user.is_seller" class="p-2 font-medium text-white bg-blue-500 rounded-md hover:underline">
-                    <Link @click="sell(product.id)" as="button">
+                    <a  @click="addToCart(product.id)" >
                     <img class="w-4 h-4" src="/icons/selling.png" alt />
-                    </Link>
+                    </a>
                   </div>
                 </div>
               </td>
@@ -102,7 +123,6 @@ const sell = ( id) => {
 .table-secondary {
     background-color: #cecbf7;
 }
-
 .table-primary {
     background-color: #b086f3;
 }
