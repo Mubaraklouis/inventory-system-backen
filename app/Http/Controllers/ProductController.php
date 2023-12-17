@@ -123,38 +123,32 @@ class ProductController extends Controller
     public function sell(sellProductRequest $request, Product $product)
     {
 
-//        $validated = [
-//            "sold" => 1,
-//        ];
 
         $this->authorize('sell', $product);
-//        DB::table('products')->where('id', $id)->update($validated);
-        // update the total sale column in the database by incrementing the sale property
+
         $user =Auth::user();
-        //get the price columns
-//        $price = $product->find($id)->price;
+
         //get the last price
-        $last_sold =DB::select('SELECT * FROM sales
+        $last_sold = DB::select('SELECT * FROM sales
         WHERE created_at = (SELECT MAX(created_at) FROM sales);');
 
         //increment the price
-//        $total_price = $last_sold[0]->total_sales +$price;
+       $total_price = $last_sold[0]->total_sales +$request['totalPrice'];
+
 
         //update the total sales
 
-//        $sale_price = [
-//            "total_sales"=>$total_price
-//        ];
+       $sale_price = [
+           "total_sales"=>$total_price
+       ];
 
-        //coming to update the algorithm
-
-dd($request->all());
-//        Sale::create($(sale_price);
+       Sale::create($sale_price);
 
 
 
 
-        return redirect()->route('products.index');
+
+        return redirect()->route('dashboard');
     }
 
     /**

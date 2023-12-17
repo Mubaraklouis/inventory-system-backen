@@ -31,44 +31,45 @@ const totalPrice = computed(()=>{
 
 //send all the cart products to the server
 const sellForm = useForm({
-    soldProducts
+    totalPrice
 });
 
 function  sell()
     {
         //send a post request to the server with the sold products
         sellForm.post(route('products.sell'))
+    
     }
 
 </script>
 
 <template>
   <transition
-enter-from-class="opacity-0 scale-125"
-enter-to-class="opacity-100 scale-100"
+enter-from-class="scale-125 opacity-0"
+enter-to-class="scale-100 opacity-100"
 enter-active-class="transition duration-300"
 leave-active-class="transition duration-200"
-leave-from-class="opacity-100 scale-100"
-leave-to-class="opacity-0 scale-125"
+leave-from-class="scale-100 opacity-100"
+leave-to-class="scale-125 opacity-0"
   >
       <div v-if="show" class="model-mask">
           <div class="model-card">
-              <div class="border-b-2 pl-5 pb-2 flex justify-between" >
+              <div class="flex justify-between pb-2 pl-5 border-b-2" >
                   <h1 class="font-extrabold">Cart</h1>
 
-                  <button  class="bg-black text-white rounded-md p-2 text-xs " @click="$emit('close')">CANCEL</button>
+                  <button  class="p-2 text-xs text-white bg-black rounded-md " @click="$emit('close')">CANCEL</button>
 
               </div>
              <!-- product carts are loaded here-->
               <ProductCartItem v-for="product in cartProducts" key="product.id" :product="product"/>
 
-              <div class="flex justify-between border-t-2 mt-4 pt-4">
+              <div class="flex justify-between pt-4 mt-4 border-t-2">
                 <div class="flex gap-x-1.5">
-                    <button @click="sell()" class="bg-blue-700 text-white rounded-md p-1 ml-5 font-extrabold text-xs p-2">Purcase</button>
-                    <button class="bg-black text-white rounded-md p-1 ml-5 font-extrabold text-xs ">Print Invoice</button>
+                    <button @click="sell()" class="p-1 p-2 ml-5 text-xs font-extrabold text-white bg-blue-700 rounded-md">Purcase</button>
+                    <button class="p-1 ml-5 text-xs font-extrabold text-white bg-black rounded-md ">Print Invoice</button>
                 </div>
 
-                  <h1 class="font-extrabold text-xs">Total price: ${{totalPrice}}</h1>
+                  <h1 class="text-xs font-extrabold">Total price: ${{totalPrice}}</h1>
               </div>
 
           </div>
