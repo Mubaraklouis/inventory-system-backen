@@ -5,6 +5,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\usersController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\pdfController;
 use Inertia\Inertia;
 
 /*
@@ -29,6 +30,7 @@ Route::get('/', function () {
     ]);
 });
 
+Route::get('pdf-generator',[pdfController::class,'generate'])->name('view-pdf');
 Route::get('/dashboard', function () {
 
 
@@ -62,7 +64,8 @@ Route::middleware('auth')->group(function () {
         Route::post('/store', 'store')->name('product.store');
         Route::get('/edit/{id}', 'editProduct')->name('product.edit');
         Route::put('/update/{id}', 'update')->name('product.update');
-        Route::post('/sell','sell')->name('products.sell');
+        Route::post('/purchase','purchase')->name('products.purchase');
+        Route::put('/sell{id}','sell')->name('products.sell');
         Route::delete('/delete/{id}', 'destroy')->name('product.delete');
         Route::put('add-to-cart/{id}','addToCart')->name('products.addtocart');
         Route::put('remove-from-cart/{id}','removeCart')->name('products.removeCart');
@@ -91,6 +94,10 @@ Route::middleware('auth')->group(function () {
         Route::get('edit/{id}','editUser')->name('user.edit');
 
   });
+
+
 });
+
+
 
 require __DIR__ . '/auth.php';

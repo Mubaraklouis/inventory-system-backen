@@ -2,7 +2,8 @@
 <script setup>
 import ProductCartItem from "@/Pages/admin/products/productCartItem.vue";
 import {computed} from "vue";
-import { useForm } from '@inertiajs/vue3'
+import { useForm ,Link} from '@inertiajs/vue3'
+
 const props =defineProps({
     show:Boolean,
     products:Array
@@ -22,7 +23,8 @@ const soldProducts = props.products.filter((product)=>product.sold === 1);
 
 const totalPrice = computed(()=>{
     let price =0;
-    for(let i =0; i<prices.length; i++){
+    for(let i =0; i<prices.length; i++)
+    {
         price+=prices[i]
     }
     return price;
@@ -37,9 +39,11 @@ const sellForm = useForm({
 function  sell()
     {
         //send a post request to the server with the sold products
-        sellForm.post(route('products.sell'))
-    
+        sellForm.post(route('products.purchase'))
+
     }
+
+    //viewing the invoice function
 
 </script>
 
@@ -67,6 +71,7 @@ leave-to-class="scale-125 opacity-0"
                 <div class="flex gap-x-1.5">
                     <button @click="sell()" class="p-1 p-2 ml-5 text-xs font-extrabold text-white bg-blue-700 rounded-md">Purcase</button>
                     <button class="p-1 ml-5 text-xs font-extrabold text-white bg-black rounded-md ">Print Invoice</button>
+                    <a :href="route('view-pdf')" method="GET" class="p-1 ml-5 text-xs font-extrabold text-white bg-green-700 rounded-md ">view Invoice</a>
                 </div>
 
                   <h1 class="text-xs font-extrabold">Total price: ${{totalPrice}}</h1>

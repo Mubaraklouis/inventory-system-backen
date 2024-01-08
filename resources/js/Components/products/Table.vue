@@ -52,14 +52,12 @@ const productAvailabilty = (status) => {
 }
 }
 
-//a function to make sell request to the server
-const sell = ( id) => {
-    sellForm.put(route('products.sell',id))
-}
+//a function to make sell request to the server and a update the sold to be true
 
 //add to the cart function
 const addToCart=(id)=>{
 cartForm.put(route('products.addtocart',id));
+sellForm.put(route('products.sell',id))
 }
 
 </script>

@@ -4,6 +4,7 @@ use App\Http\Requests\addTocartRequest;
 use App\Http\Requests\createProductRequest;
 use App\Http\Requests\removeCartRequest;
 use App\Http\Requests\sellProductRequest;
+use App\Http\Requests\soldProductRequest;
 use App\Models\Product;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
@@ -120,7 +121,7 @@ class ProductController extends Controller
      * sell()->sets the sold column true(1).
      * @throws AuthorizationException
      */
-    public function sell(sellProductRequest $request, Product $product)
+    public function purchase(sellProductRequest $request, Product $product)
     {
 
 
@@ -145,16 +146,25 @@ class ProductController extends Controller
        Sale::create($sale_price);
 
 
-
-
-
         return redirect()->route('dashboard');
     }
 
     /**
      * update the the cart column in the database to be true.
      */
-    public function addToCart(addTocartRequest $request,Product $product,$id)
+    public function addToCart(soldProductRequest $request , $id )
+    {
+        $validated = [
+            "sold" => 1,
+        ];
+        DB::table('products')->where('id', $id)->update($validated);
+    }
+
+
+        /**
+     * update the the cart column in the database to be true.
+     */
+    public function sell(addTocartRequest $request,Product $product,$id)
     {
         $validated = [
             "added_cart" => 1,

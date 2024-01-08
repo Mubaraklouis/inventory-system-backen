@@ -20,27 +20,22 @@ const sellForm = useForm({
         form.put(route('products.removeCart',id));
     }
 
-    function  sell()
-    {
-        //send a post request to the server with the sold products
-        sellForm.post(route('products.sell'),)
-    }
 </script>
 
 <template>
-    <div class="products mb-5 bt-5">
+    <div class="mb-5 products bt-5">
         <div class="product">
-            <div class="image-wrapper rounded-lg border">
-                <img class="  rounded-t-lg" src="/images/apple-watch.png" alt="product image" />
+            <div class="border rounded-lg image-wrapper">
+                <img class="rounded-t-lg " src="/images/apple-watch.png" alt="product image" />
             </div>
             <div>
-                <h3 class="font-bold mb-1">{{product.name}}</h3>
-                <p class="text-gray-500 text-xs font-extrabold">{{product.serial_number}}</p>
+                <h3 class="mb-1 font-bold">{{product.name}}</h3>
+                <p class="text-xs font-extrabold text-gray-500">{{product.serial_number}}</p>
             </div>
         </div>
         <div class="flex gap-5">
-            <div class="increment-btn flex gap-5   border-2 p-2  rounded-lg ">
-                <p class=" text-xs font-extrabold">
+            <div class="flex gap-5 p-2 border-2 rounded-lg increment-btn ">
+                <p class="text-xs font-extrabold ">
                     Add
                 </p>
                 <p class="text-xs font-extrabold">1</p>
@@ -49,7 +44,7 @@ const sellForm = useForm({
             </div>
 
             <div class="flex gap-2 p-2">
-                <h3 class="font-extrabold text-xs">${{product.price}}</h3>
+                <h3 class="text-xs font-extrabold">${{product.price}}</h3>
                 <Link @click="removeCartItem(product.id)">  <img class="w-4 h-4" src="/icons/delete.png" alt /></Link>
             </div>
         </div>
