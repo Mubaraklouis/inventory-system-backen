@@ -1,5 +1,14 @@
 
+
+<?php
+$price=0;
+?>
+<?php
+$d=strtotime("10:30pm April 15 2014");
+$currentDate =  date("Y-m-d");
+?>
     <div class="invoice-box">
+
         <table cellpadding="0" cellspacing="0">
             <tr class="top">
                 <td colspan="2">
@@ -10,8 +19,7 @@
                             </td>
                             <td>
                                 Invoice #: 123<br />
-                                Created: January 1, 2023<br />
-                                Due: February 1, 2023
+                                Created: {{$currentDate}}<br />
                             </td>
                         </tr>
                     </table>
@@ -23,15 +31,15 @@
                     <table>
                         <tr>
                             <td>
-                                Sparksuite, Inc.<br />
-                                12345 Sunny Road<br />
-                                Sunnyville, CA 12345
+                                Inventory, Inc.<br />
+                                12345 Juba Munuki Road<br />
+                                Juba, SSD 12345
                             </td>
 
                             <td>
-                                Acme Corp.<br />
-                                John Doe<br />
-                                john@example.com
+                                Inventory-system.<br />
+                                Customer Name<br />
+                                ....................................
                             </td>
                         </tr>
                     </table>
@@ -56,35 +64,29 @@
                 <td>Price</td>
             </tr>
 
+            @foreach ($products as $product )
+
+            @if ($product['added_cart'] === 1)
+
+            <?php
+            $price+=$product['price'];
+            ?>
             <tr class="item">
-                <td>Website design</td>
+                <td>{{$product["name"]}}</td>
 
-                <td>$300.00</td>
+                <td>${{$product["price"]}}</td>
             </tr>
-
-            <tr class="item">
-                <td>Hosting (3 months)</td>
-
-                <td>$75.00</td>
-            </tr>
-
-            <tr class="item last">
-                <td>Domain name (1 year)</td>
-
-                <td>$10.00</td>
-            </tr>
+            @endif
+            @endforeach
 
             <tr class="total">
                 <td></td>
 
-                <td>Total: $385.00</td>
+                <td>Total: ${{$price}} </td>
             </tr>
         </table>
     </div>
-
     <style>
-
-
 <style>
     .invoice-box {
         max-width: 800px;

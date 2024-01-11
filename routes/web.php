@@ -30,7 +30,8 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('pdf-generator',[pdfController::class,'generate'])->name('view-pdf');
+//print the invoice of the customer
+Route::get('pdf-generator',[pdfController::class,'generate'])->name('print-pdf');
 Route::get('/dashboard', function () {
 
 

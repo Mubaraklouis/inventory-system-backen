@@ -2,17 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use Barryvdh\DomPDF\Facade\Pdf;
 
 class pdfController extends Controller
 {
   function generate()
   {
-    $data = [
-        "message"=>"my pdf"
-    ];
 
-    $pdf = Pdf::loadView('invoice', $data);
+    $products =Product::all();
+
+    $data = [
+     "products"=>$products
+    ];
+    $pdf = Pdf::loadView('invoice', ["products"=>$products]);
     return $pdf->stream();
 
   }

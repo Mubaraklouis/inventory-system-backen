@@ -69,9 +69,9 @@ leave-to-class="scale-125 opacity-0"
 
               <div class="flex justify-between pt-4 mt-4 border-t-2">
                 <div class="flex gap-x-1.5">
-                    <button @click="sell()" class="p-1 p-2 ml-5 text-xs font-extrabold text-white bg-blue-700 rounded-md">Purcase</button>
-                    <button class="p-1 ml-5 text-xs font-extrabold text-white bg-black rounded-md ">Print Invoice</button>
-                    <a :href="route('view-pdf')" method="GET" class="p-1 ml-5 text-xs font-extrabold text-white bg-green-700 rounded-md ">view Invoice</a>
+                    <button @click="sell()" class=" p-2 ml-5 text-xs font-extrabold text-white bg-blue-700 rounded-md">Purcase</button>
+                    <!-- <button class="p-1 ml-5 text-xs font-extrabold text-white bg-black rounded-md ">Print Invoice</button> -->
+                    <a :href="route('print-pdf')" method="GET" class="p-1 ml-5 text-xs font-extrabold text-white bg-black rounded-md p-2">Print Invoice</a>
                 </div>
 
                   <h1 class="text-xs font-extrabold">Total price: ${{totalPrice}}</h1>
