@@ -64,6 +64,7 @@ const form = useForm({
     description: "",
     quantity: "",
     sold: 0,
+    added_cart:0
 });
 
 

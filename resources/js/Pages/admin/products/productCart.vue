@@ -40,6 +40,7 @@ function  sell()
     {
         //send a post request to the server with the sold products
         sellForm.post(route('products.purchase'))
+        props.products=[];
 
     }
 
@@ -71,7 +72,7 @@ leave-to-class="scale-125 opacity-0"
                 <div class="flex gap-x-1.5">
                     <button @click="sell()" class=" p-2 ml-5 text-xs font-extrabold text-white bg-blue-700 rounded-md">Purcase</button>
                     <!-- <button class="p-1 ml-5 text-xs font-extrabold text-white bg-black rounded-md ">Print Invoice</button> -->
-                    <a :href="route('print-pdf')" method="GET" class="p-1 ml-5 text-xs font-extrabold text-white bg-black rounded-md p-2">Print Invoice</a>
+                    <a :href="route('print-pdf')" class=" ml-5 text-xs font-extrabold text-white bg-black rounded-md p-2">Print Invoice</a>
                 </div>
 
                   <h1 class="text-xs font-extrabold">Total price: ${{totalPrice}}</h1>

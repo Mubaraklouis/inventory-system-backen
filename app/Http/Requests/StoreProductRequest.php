@@ -31,7 +31,8 @@ class StoreProductRequest extends FormRequest
       "serial_number"=>"required|integer",
       "description" => "required|max:255",
       "quantity" => "required|integer",
-      "sold" =>"required|boolean"
+      "sold" =>"required|boolean",
+      "added_cart"=>"nullable"
         ];
     }
 }

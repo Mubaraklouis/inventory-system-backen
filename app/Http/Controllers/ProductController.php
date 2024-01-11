@@ -80,6 +80,7 @@ class ProductController extends Controller
 
         //validate the product before storing it
         $validated = $request->validated();
+     
         //authorision only admins can add product
         $this->authorize('create', $product);
         Product::create($validated);

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->boolean('added_cart');
             $table->string('name');
             $table->integer('price');
-            $table->integer('serial_number');
+            $table->bigInteger('serial_number');
             $table->string('description');
             $table->integer('quantity');
             $table->timestamps();

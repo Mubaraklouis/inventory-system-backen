@@ -24,7 +24,8 @@ class Product extends Model
     'user_id',
     'description',
     'sold',
-    'category_id'
+    'category_id',
+    'added_cart'
 ];
 
     public function users()
@@ -44,9 +45,8 @@ class Product extends Model
     {
         //check if the user try to search for a product
         if (request('search')) {
-                $query->where('name', 'like', '%' . request('search') . '%')->with(['category']);
+                $query->where('serial_number', 'like', '%' . request('search') . '%')->with(['category']);
             }
         }
-
     use HasFactory;
     }
